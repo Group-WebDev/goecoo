@@ -4,11 +4,13 @@
       <thead class="back">
         <tr>
           <th class="text-left">
-            <v-btn x-large color="teal"><v-icon @click.stop="drawer = !drawer">fas fa-bars</v-icon> </v-btn> &nbsp;&nbsp;&nbsp;&nbsp;GoEco
+            <v-btn x-large color="teal"
+              ><v-icon @click.stop="drawer = !drawer">fas fa-bars</v-icon>
+            </v-btn>
+            &nbsp;&nbsp;&nbsp;&nbsp;GoEco
           </th>
           <th class="text-right">
-           
-              <v-btn  link @click="logout()"  class="mx-2" fab dark color="teal">
+            <v-btn link @click="logout()" class="mx-2" fab dark color="teal">
               <v-icon dark>fas fa-sign-out-alt</v-icon>
             </v-btn>
             <!-- <v-btn >
@@ -18,7 +20,13 @@
         </tr>
       </thead>
     </v-simple-table>
-    <v-navigation-drawer height="910" class="overflow-hidden" v-model="drawer" absolute temporary>
+    <v-navigation-drawer
+      height="910"
+      class="overflow-hidden"
+      v-model="drawer"
+      absolute
+      temporary
+    >
       <v-list-item>
         <v-list-item-avatar>
           <v-img src="../assets/accountIcon.jpeg"></v-img>
@@ -52,7 +60,6 @@
         <v-list-item link @click="addevent()">
           <v-list-item-action>
             <v-icon>fas fa-calendar-plus</v-icon>
-           
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Add Event</v-list-item-title>
@@ -83,10 +90,9 @@
         </v-card> -->
         <!-- </v-col> -->
       </v-row>
-       <!-- <CardOfEvents /> -->
+      <!-- <CardOfEvents /> -->
     </v-container>
   </div>
- 
 </template>
 <style scoped>
 .theme--light.v-data-table.v-data-table--fixed-header thead th {
@@ -108,8 +114,8 @@
   color: green;
 }
 .fa-clipboard-list:before {
-    content: "\f46d";
-    color: green;
+  content: "\f46d";
+  color: green;
 }
 .fa-building:before {
   content: "\f1ad";
@@ -135,9 +141,10 @@
 }
 </style>
 <script>
+import axios from 'axios'
 export default {
   name: "sidebar",
- 
+
   data: () => ({
     drawer: true
   }),
@@ -148,10 +155,12 @@ export default {
     addevent() {
       this.$router.push("/addevent");
     },
-    logout(){
-      this.$router.push("/");
+    logout() {
+      this.$store.dispatch('logout')
+      .then(() => {
+        this.$router.push("/admin");
+      })      
     }
   }
 };
 </script>
-
