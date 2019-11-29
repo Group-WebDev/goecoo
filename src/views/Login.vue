@@ -97,6 +97,7 @@ export default {
         .then(response => {
           let is_admin = response.data.user.is_admin;
           localStorage.setItem("token", response.data.token);
+          session.setItem("authenticated", true)
 
           if (localStorage.getItem("token") != null) {
             this.$emit("loggedIn");

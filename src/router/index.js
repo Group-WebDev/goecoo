@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
+import store from "../store"
 // import Sidebar from "../components/Sidebar.vue";
 import Dashboard from "../views/Dashboard.vue";
 import AddEvent from "../components/AddEvent.vue";
@@ -9,30 +10,43 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/admin",
+    path: "/login",
     name: "login",
-    component: Login
+    component: Login,
+    beforeEnter: (to, from, next) => {
+        if (store.state.authenticated == true) {
+            next("/dashboard");
+        } else {
+            next();
+        }
+
+    },
+  },
+  {
+    path : "/",
+    redirect : {
+      path : "/login"
+    }
   },
   {
     path: "/home",
     name: "home",
     component: Home
   },
-  // {
-  //   path:"/sidebar",
-  //   name:"sidebar",
-  //   component:Sidebar,
-  //   meta: {
-  //       tokenRequired: false
-  //   }
-  // },
   {
     path:"/dashboard",
     name:"dashboard",
     component:Dashboard ,
     meta: {
         tokenRequired: false
-    }
+    },
+    beforeEnter: (to, from, next) => {
+      if (store.state.authenticated == false) {
+          next("/login");
+      } else {
+          next();
+      }
+  }
   },
   {
     path:"/addevent",
@@ -40,7 +54,14 @@ const routes = [
     component:AddEvent,
     meta: {
         tokenRequired: false
-    }
+    },
+    beforeEnter: (to, from, next) => {
+      if (store.state.authenticated == false) {
+          next("/login");
+      } else {
+          next();
+      }
+  }
   },
   // {
   //   path:"/imageupload",
@@ -57,7 +78,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      beforeEnter: (to, from, next) => {
+        if (store.state.authenticated == false) {
+            next("/login");
+        } else {
+            next();
+        }
+    }
   }
 ];
 
