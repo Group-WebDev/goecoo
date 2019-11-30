@@ -1,13 +1,13 @@
 <template>
   <div id="background">
     <v-flex justify-center>
-      <h1 class="subtitle-110 text-center">GoEco</h1>
+      <!-- <h1 class="subtitle-110 text-center">GoEco</h1> -->
 
       <v-card class="mx-auto card" max-width="400">
         <v-container>
           <center>
-            <v-img src="@/assets/accountIcon.jpeg" id="image"></v-img>
-            <h1>Admin</h1>
+            <v-img src="@/assets/go-eco.png" id="image"></v-img>
+            <h1>GoEco</h1>
           </center>
           <form id="form">
             <v-container>
@@ -57,11 +57,12 @@ h2 {
   color: white;
 }
 .card {
-  margin-top: 1%;
+  margin-top: 8%;
+  margin-bottom: auto;
 }
 #image {
-  width: 40%;
-  height: 40%;
+  width: 60%;
+  height: 60%;
 }
 </style>
 <script>
@@ -91,25 +92,17 @@ export default {
   },
   methods: {
     login() {
+      // this.$store.dispatch('login', {username : this.user.username, password : this.user.password})
       axios.post("http://localhost:5000/admin/login", {
         data: { username: this.user.username, password: this.user.password }
       })
         .then(response => {
-          let is_admin = response.data.user.is_admin;
           localStorage.setItem("token", response.data.token);
-          session.setItem("authenticated", true)
+          sessionStorage.setItem("username", response.data.user.username)
 
           if (localStorage.getItem("token") != null) {
+          this.$router.push("/dashboard")
             this.$emit("loggedIn");
-            if (this.$route.params.nextUrl != null) {
-              this.$router.push(this.$route.params.nextUrl);
-            } else {
-              if (is_admin == 1) {
-                this.$router.push("admin");
-              } else {
-                this.$router.push("dashboard");
-              }
-            }
           }
         })
         .catch(err => {

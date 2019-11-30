@@ -139,14 +139,14 @@ export default {
     };
   },
   mounted() {
-    axios.get("http://localhost:3000/event/retrieveAll").then(res => {
+    axios.get("http://localhost:5000/event/retrieveAll").then(res => {
       this.events = res.data;
     });
   },
   methods: {
     deleteEvent(id) {
-      axios.delete("http://localhost:3000/event/delete" + id).then(res => {
-        axios.get("http://localhost:3000/event/retrieveAll").then(res => {
+      axios.delete("http://localhost:5000/event/delete" + id).then(res => {
+        axios.get("http://localhost:5000/event/retrieveAll").then(res => {
           this.events = res.data;
         });
       });

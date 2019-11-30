@@ -14,63 +14,62 @@ const routes = [
     name: "login",
     component: Login,
     beforeEnter: (to, from, next) => {
-        if (store.state.authenticated == true) {
-            next("/dashboard");
-        } else {
-            next();
-        }
+      if (localStorage.getItem("token") != null) {
+        next("/dashboard");
+      } else {
+        next();
+      }
 
     },
   },
   {
-    path : "/",
-    redirect : {
-      path : "/login"
+    path: "/",
+    redirect: {
+      path: "/login"
     }
   },
   {
     path: "/home",
     name: "home",
-    component: Home
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("token") == null) {
+        next("/login");
+      } else {
+        next();
+      }
+    }
   },
   {
-    path:"/dashboard",
-    name:"dashboard",
-    component:Dashboard ,
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
     meta: {
-        tokenRequired: false
+      tokenRequired: false
     },
     beforeEnter: (to, from, next) => {
-      if (store.state.authenticated == false) {
-          next("/login");
+      if (localStorage.getItem("token") == null) {
+        next("/login");
       } else {
-          next();
+        next();
       }
-  }
+    }
   },
   {
-    path:"/addevent",
-    name:"addevent",
-    component:AddEvent,
+    path: "/addevent",
+    name: "addevent",
+    component: AddEvent,
     meta: {
-        tokenRequired: false
+      tokenRequired: false
     },
     beforeEnter: (to, from, next) => {
-      if (store.state.authenticated == false) {
-          next("/login");
+      if (localStorage.getItem("token") == null) {
+        next("/login");
       } else {
-          next();
+        next();
       }
-  }
+    }
   },
-  // {
-  //   path:"/imageupload",
-  //   name:"imageupload",
-  //   component:imageupload,
-  //   meta: {
-  //       tokenRequired: false
-  //   }
-  // },
   {
     path: "/about",
     name: "about",
@@ -79,12 +78,12 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
-      beforeEnter: (to, from, next) => {
-        if (store.state.authenticated == false) {
-            next("/login");
-        } else {
-            next();
-        }
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("token") == null) {
+        next("/login");
+      } else {
+        next();
+      }
     }
   }
 ];

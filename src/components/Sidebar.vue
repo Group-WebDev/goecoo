@@ -29,7 +29,7 @@
     >
       <v-list-item>
         <v-list-item-avatar>
-          <v-img src="../assets/accountIcon.jpeg"></v-img>
+          <v-img src="../assets/go-eco.png"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -156,10 +156,12 @@ export default {
       this.$router.push("/addevent");
     },
     logout() {
-      this.$store.dispatch('logout')
-      .then(() => {
-        this.$router.push("/admin");
-      })      
+      // this.$store.dispatch('logout')
+        sessionStorage.removeItem('user')
+        sessionStorage.removeItem('authenticated')
+        localStorage.removeItem('token')
+        delete axios.defaults.headers.common['Authorization']
+        this.$router.push("/login");
     }
   }
 };
