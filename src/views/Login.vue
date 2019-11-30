@@ -93,7 +93,7 @@ export default {
   methods: {
     login() {
       // this.$store.dispatch('login', {username : this.user.username, password : this.user.password})
-      axios.post("http://localhost:5000/admin/login", {
+      axios.post("http://localhost:5000/admin", {
         data: { username: this.user.username, password: this.user.password }
       })
         .then(response => {

@@ -163,7 +163,7 @@ export default {
       sessionStorage.removeItem("authenticated");
       localStorage.removeItem("token");
       delete axios.defaults.headers.common["Authorization"];
-      this.$router.push("/login");
+      this.$router.push("/admin");
     }
   }
 };

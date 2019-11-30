@@ -2,7 +2,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:8080';
 
 export function Login() {
-        return axios.get(`${BASE_URL}/login`)
+        return axios.get(`${BASE_URL}/admin`)
                 .then(response => response.data);
 }
 export function deleteStudent(id){
