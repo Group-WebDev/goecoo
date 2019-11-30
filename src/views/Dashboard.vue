@@ -168,9 +168,9 @@ export default {
       };
       console.log(data)
       axios
-        .put("http://localhost:3000/event/update" + this.id, { data })
+        .put("http://localhost:5000/event/update" + this.id, { data })
         .then(res => {
-          axios.get("http://localhost:3000/event/retrieveAll").then(res => {
+          axios.get("http://localhost:5000/event/retrieveAll").then(res => {
             this.events = res.data;
           });
         });

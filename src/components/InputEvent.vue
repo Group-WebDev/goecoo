@@ -3,14 +3,15 @@
   <v-row justify="center" >
     <v-col cols="12" sm="10" md="8" lg="6">
       <v-card ref="form">
-        <template>
+        <!-- <template>
           <v-card
             class="mx-auto"
             max-width="400"
-          > <Imageupload />
+          > 
+          <Imageupload />
           </v-card>
-        </template>
-        <h1 class="text-center">Create an Event</h1>
+        </template> -->
+        <v-btn text id="header">Create an Event</v-btn>
        
         <v-card-text>
           <v-text-field
@@ -94,7 +95,7 @@
               <span>Refresh form</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="primary" text @click="submit">Submit</v-btn>
+          <v-btn color="primary" text @click="submit">Create</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -103,7 +104,13 @@
 </template>
 
 <style>
-
+#header {
+  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-left : 27%;
+  margin-right: auto;
+  font-size: 30px
+}
 </style>
 
 <script>
@@ -125,7 +132,7 @@ import Imageupload from "../components/imageupload.vue"
             borderRadius: 0
     }),
     components:{
-      Imageupload
+      // Imageupload
     },
 
     computed: {
@@ -178,7 +185,7 @@ import Imageupload from "../components/imageupload.vue"
               address : this.address
             }
         axios
-          .post('http://localhost:3000/event/create', {data})
+          .post('http://localhost:5000/event/create', {data})
           .then(res =>{
             this.$router.push('/dashboard')
           })

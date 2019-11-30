@@ -4,10 +4,12 @@
       <thead class="back">
         <tr>
           <th class="text-left">
-            <v-btn x-large color="teal"
-              ><v-icon @click.stop="drawer = !drawer">fas fa-bars</v-icon>
+            <v-btn x-large color="teal">
+              <v-icon @click.stop="drawer = !drawer">fas fa-bars</v-icon>
             </v-btn>
-            &nbsp;&nbsp;&nbsp;&nbsp;GoEco
+            <v-list-item-avatar>
+              <v-img src="../assets/go-eco.png"></v-img>
+            </v-list-item-avatar>&nbsp;&nbsp;&nbsp;GoEco
           </th>
           <th class="text-right">
             <v-btn link @click="logout()" class="mx-2" fab dark color="teal">
@@ -15,18 +17,12 @@
             </v-btn>
             <!-- <v-btn >
             <v-icon>fas fa-sign-out-alt</v-icon>
-            </v-btn> -->
+            </v-btn>-->
           </th>
         </tr>
       </thead>
     </v-simple-table>
-    <v-navigation-drawer
-      height="910"
-      class="overflow-hidden"
-      v-model="drawer"
-      absolute
-      temporary
-    >
+    <v-navigation-drawer height="910" class="overflow-hidden" v-model="drawer" absolute temporary>
       <v-list-item>
         <v-list-item-avatar>
           <v-img src="../assets/go-eco.png"></v-img>
@@ -48,7 +44,7 @@
             <v-list-item-title>Dashboard</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item link @click="subscriber()">
           <v-list-item-action>
             <v-icon>fad fa-clipboard-list</v-icon>
             <!-- <i class="fad fa-clipboard-list"></i> -->
@@ -65,7 +61,7 @@
             <v-list-item-title>Add Event</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item link @click="aboutus()">
           <v-list-item-action>
             <v-icon>fas fa-building</v-icon>
           </v-list-item-action>
@@ -87,7 +83,7 @@
               <v-icon color="blue">fab fa-facebook</v-icon>
             </v-btn>
           </v-card-actions>
-        </v-card> -->
+        </v-card>-->
         <!-- </v-col> -->
       </v-row>
       <!-- <CardOfEvents /> -->
@@ -141,7 +137,7 @@
 }
 </style>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "sidebar",
 
@@ -152,16 +148,22 @@ export default {
     dashboard() {
       this.$router.push("/dashboard");
     },
+    subscriber() {
+      this.$router.push("/dashboard");
+    },
     addevent() {
       this.$router.push("/addevent");
     },
+    aboutus() {
+      this.$router.push("/dashboard");
+    },
     logout() {
       // this.$store.dispatch('logout')
-        sessionStorage.removeItem('user')
-        sessionStorage.removeItem('authenticated')
-        localStorage.removeItem('token')
-        delete axios.defaults.headers.common['Authorization']
-        this.$router.push("/login");
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("authenticated");
+      localStorage.removeItem("token");
+      delete axios.defaults.headers.common["Authorization"];
+      this.$router.push("/login");
     }
   }
 };
