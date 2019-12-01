@@ -13,10 +13,13 @@ const remove = require('./events/delete');
 const update = require('./events/update');
 const multer = require('multer');
 const bodyParser = require("body-parser");
+const path = require('path');
+//const test = require('../')
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, './public/images');
+      cb(null, '../public/images');
   },
   filename: (req, file, cb) => {
       var filetype = '';
@@ -34,6 +37,8 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+
+app.use('/static', express.static(path.join(__dirname, '/../public')))
 
 app.use(bodyParser.json());
 app.use(
@@ -86,7 +91,9 @@ const checkToken = (req, res, next) => {
       res.sendStatus(403)
   }
 }
-
+// app.get('/',(req, res) =>{
+//   res
+// })
 app.get('/', checkToken, function (req, res) {
   verify.verifyToken(req, res);
 })
@@ -100,7 +107,8 @@ app.post('/subscribe', function (req, res) {
   subscribe.subscribe(req, res);
 })
 
-app.post('/event/create',upload.single('file'), (req, res) => {
+app.post('/event/create',upload.single('image'), (req, res) => {
+  console.log(req.body, 'the file')
   create.createEvent(req, res);
 })
 app.get('/event/retrieveAll', (req, res) => {

@@ -24,7 +24,7 @@
                 counter
                 @click:append="show1 = !show1"
               ></v-text-field>
-              <v-btn class="mr-4" @click="login" color="green">submit</v-btn>
+              <v-btn class="mr-4" @click="login" :disabled="!validinput" color="green">submit</v-btn>
               <v-btn @click="clear">clear</v-btn>
             </v-container>
           </form>

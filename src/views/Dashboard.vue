@@ -8,8 +8,7 @@
           <h4>{{event.dateCreated}}</h4>
           <div id="title">
             <h1>{{event.title}}</h1>
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr24QAZ3WY5yDvMErZIPnLtxg4jgYKyfcLVLsmM8rGV1CCvEHA&s"
+            <img v-bind:src="'http://localhost:5000/static/images/' + event.image" />
             >
             <h4>Date : {{event.dateEvent}}</h4>
             <h4>Location : {{event.address}}</h4>
@@ -43,7 +42,7 @@
         <v-card ref="form">
           <template>
             <v-card class="mx-auto" max-width="400">
-              <Imageupload/>
+              <!-- <Imageupload/> -->
             </v-card>
           </template>
           <h1 class="text-center">Create an Event</h1>

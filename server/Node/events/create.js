@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const event = require("../models/event");
 const express = require('express')
+const multer = require('multer');
 const app = express();
 
 app.use(bodyParser.json());
@@ -55,7 +56,7 @@ var currentDate = function() {
 };
 
 const createEvent = (req, res) => {
-  d = req.body.data;
+  d = req.body;
   currentDate();
   let test = async function() {
     let data = {
@@ -65,7 +66,8 @@ const createEvent = (req, res) => {
       url : req.file.filename,
       address: d.address,
       description: d.description,
-      createdBy: id
+      createdBy: id,
+      image:req.file.filename
     };
     await event.addEvent(data);
     let item = await event.getLastEvent();

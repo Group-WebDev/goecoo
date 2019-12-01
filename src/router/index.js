@@ -88,7 +88,7 @@ const routes = [
   },
   {
     path: "/admin/about",
-    name: "admin/about",
+    name: "aboutus",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About_Admin.vue"),
     beforeEnter: (to, from, next) => {

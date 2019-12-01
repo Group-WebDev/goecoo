@@ -4,8 +4,8 @@
       <thead class="back">
         <tr>
           <th class="text-left">
-            <v-btn x-medium color="teal" height="50">
-              <v-icon @click.stop="drawer = !drawer" color="white">fas fa-bars</v-icon>
+            <v-btn @click.stop="drawer = !drawer" x-medium color="teal" height="50">
+              <v-icon  color="white">fas fa-bars</v-icon>
             </v-btn>
             <v-list-item-avatar>
               <v-img src="../assets/go-eco.png"></v-img>
