@@ -1,11 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home_Admin from "../views/Home_Admin.vue";
 import Admin from "../views/Login.vue"
-import store from "../store"
+import Home from "../views/Home.vue";
 // import Sidebar from "../components/Sidebar.vue";
 import Dashboard from "../views/Dashboard.vue";
+import SubscriberList from "../views/Subscriber_List.vue";
 import AddEvent from "../components/AddEvent.vue";
+import { homedir } from "os";
 Vue.use(VueRouter);
 
 const routes = [
@@ -15,7 +17,7 @@ const routes = [
     component: Admin,
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem("token") != null) {
-        next("/dashboard");
+        next("/admin/dashboard");
       } else {
         next();
       }
@@ -24,14 +26,13 @@ const routes = [
   },
   {
     path: "/",
-    redirect: {
-      path: "/admin"
-    }
+    name: "home",
+    component : Home
   },
   {
-    path: "/home",
-    name: "home",
-    component: Home,
+    path: "/admin/home",
+    name: "admin/home",
+    component: Home_Admin,
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem("token") == null) {
         next("/admin");
@@ -41,7 +42,7 @@ const routes = [
     }
   },
   {
-    path: "/dashboard",
+    path: "/admin/dashboard",
     name: "dashboard",
     component: Dashboard,
     meta: {
@@ -56,7 +57,22 @@ const routes = [
     }
   },
   {
-    path: "/addevent",
+    path: "/admin/subscriberlist",
+    name: "subscriberlist",
+    component: SubscriberList,
+    meta: {
+      tokenRequired: false
+    },
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("token") == null) {
+        next("/admin");
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: "/admin/addevent",
     name: "addevent",
     component: AddEvent,
     meta: {
@@ -71,13 +87,10 @@ const routes = [
     }
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/admin/about",
+    name: "admin/about",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import(/* webpackChunkName: "about" */ "../views/About_Admin.vue"),
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem("token") == null) {
         next("/admin");
@@ -85,6 +98,12 @@ const routes = [
         next();
       }
     }
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
   }
 ];
 

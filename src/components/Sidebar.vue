@@ -4,8 +4,8 @@
       <thead class="back">
         <tr>
           <th class="text-left">
-            <v-btn x-large color="teal">
-              <v-icon @click.stop="drawer = !drawer">fas fa-bars</v-icon>
+            <v-btn x-medium color="teal" height="50">
+              <v-icon @click.stop="drawer = !drawer" color="white">fas fa-bars</v-icon>
             </v-btn>
             <v-list-item-avatar>
               <v-img src="../assets/go-eco.png"></v-img>
@@ -15,9 +15,6 @@
             <v-btn link @click="logout()" class="mx-2" fab dark color="teal">
               <v-icon dark>fas fa-sign-out-alt</v-icon>
             </v-btn>
-            <!-- <v-btn >
-            <v-icon>fas fa-sign-out-alt</v-icon>
-            </v-btn>-->
           </th>
         </tr>
       </thead>
@@ -74,19 +71,7 @@
 
     <v-container fluid>
       <v-row dense>
-        <!-- <v-col v-for="card in cards" :key="card.title" :cols="card.flex"> -->
-        <!-- <v-card>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon color="blue">fab fa-facebook</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>-->
-        <!-- </v-col> -->
       </v-row>
-      <!-- <CardOfEvents /> -->
     </v-container>
   </div>
 </template>
@@ -142,25 +127,24 @@ export default {
   name: "sidebar",
 
   data: () => ({
-    drawer: true
+    drawer: false
   }),
   methods: {
     dashboard() {
-      this.$router.push("/dashboard");
+      this.$router.push("dashboard").catch(err => {})
     },
     subscriber() {
-      this.$router.push("/dashboard");
+      this.$router.push("subscriberlist").catch(err => {})
     },
     addevent() {
-      this.$router.push("/addevent");
+      this.$router.push("/admin/addevent").catch(err => {})
     },
     aboutus() {
-      this.$router.push("/dashboard");
+      this.$router.push("/admin/about").catch(err => {})
     },
     logout() {
       // this.$store.dispatch('logout')
-      sessionStorage.removeItem("user");
-      sessionStorage.removeItem("authenticated");
+      sessionStorage.removeItem("username");
       localStorage.removeItem("token");
       delete axios.defaults.headers.common["Authorization"];
       this.$router.push("/admin");

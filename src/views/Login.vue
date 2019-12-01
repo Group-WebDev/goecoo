@@ -6,8 +6,7 @@
       <v-card class="mx-auto card" max-width="400">
         <v-container>
           <center>
-            <v-img src="@/assets/go-eco.png" id="image"></v-img>
-            <h1>GoEco</h1>
+            <v-img src="@/assets/icon.png" id="image"></v-img>
           </center>
           <form id="form">
             <v-container>
@@ -101,7 +100,7 @@ export default {
           sessionStorage.setItem("username", response.data.user.username)
 
           if (localStorage.getItem("token") != null) {
-          this.$router.push("/dashboard")
+          this.$router.push("/admin/dashboard")
             this.$emit("loggedIn");
           }
         })

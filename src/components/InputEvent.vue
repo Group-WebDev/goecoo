@@ -75,7 +75,7 @@
 
         
         <v-card-actions>
-          <v-btn text  @click= "$router.push('/dashboard')" >Cancel</v-btn>
+          <v-btn text  @click= "$router.push('/admin/dashboard')" >Cancel</v-btn>
           <v-spacer></v-spacer>
           <v-slide-x-reverse-transition>
             <v-tooltip
@@ -187,7 +187,7 @@ import Imageupload from "../components/imageupload.vue"
         axios
           .post('http://localhost:5000/event/create', {data})
           .then(res =>{
-            this.$router.push('/dashboard')
+            this.$router.push('/admin/dashboard')
           })
           .catch(err =>{
             console.log(err)

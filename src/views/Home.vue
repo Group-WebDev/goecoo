@@ -1,26 +1,26 @@
 <template>
-<div>
-  <Sidebar />
-  <EventCard  />
+<div id="app">
+  <Carousel/>
+  <Content/>
 </div>
 </template>
+
 <script>
-import Sidebar from '../components/Sidebar.vue'
-import VImageInput from 'vuetify-image-input/a-la-carte';
-import EventCard from '../components/EventCard.vue';
-// import InputEvent from '../components/InputEvent.vue'
+// @ is an alias to /src
+import Carousel from "@/components/Common/Carousel.vue";
+import Content from "@/components/Content.vue"
 export default {
-  
-  data: () => ({
- 
-    posts:[{},{}]
-  }),
-  components: {
-    Sidebar,
-    EventCard 
-    // InputEvent
-  },
-  methods: {
-  }
-};
+    components:{
+      Carousel,
+      Content
+    }
+}
 </script>
+
+<!-- <v-container>
+    <v-row>
+      <v-col cols="4" v-for="(cat,idx) in cats" :key="idx">
+        <Content :cat="cat" />
+      </v-col>
+    </v-row>
+  </v-container> -->
