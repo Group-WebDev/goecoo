@@ -228,16 +228,15 @@ export default {
       //   .catch((err)=> {
       //     console.log(err);
       //   });
-      if (this.title && this.address && this.date && this.description != null) {
-        axios
-          .post("http://localhost:5000/event/create", formData)
+      if(this.title && this.description && this.address != null){
+      axios.post('http://localhost:5000/event/create',formData)
           .then(res => {
             this.$router.push("dashboard");
             console.log(res);
           })
           .catch(err => {
             console.log(err);
-          });
+          }); 
       } else {
         alert("fill all the given fields");
       }
