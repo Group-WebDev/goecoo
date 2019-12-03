@@ -25,7 +25,9 @@ const subscribe = (req, res) => {
     const exist = await subscriber.getByUsername(req.body.username);
     if (exist == null) {
       let data = {
-        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        middlename: req.body.middlename,
         email: req.body.email,
         address: req.body.address
       };

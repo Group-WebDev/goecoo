@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:5000';
 
 export function Login() {
         return axios.get(`${BASE_URL}/admin`)
@@ -11,7 +11,7 @@ export function deleteStudent(id){
                 .catch(err => Promise.reject(err.message));
 }
 export function createUser(data) {
-        return axios.post(`${BASE_URL}/subscriber/create`, 
+        return axios.post(`${BASE_URL}/subscribers/create`, 
         { firstname:data.firstname,lastname:data.lastname,middlename:data.middlename, email:data.email,address:data.address }
         )      .then(response => {
                         alert(response)
