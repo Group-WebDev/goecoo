@@ -2,21 +2,49 @@
   <div>
     <Sidebar/>
     <div>
-      <v-carousel cycle height="500" hide-delimiter-background show-arrows-on-hover>
-      <v-carousel-item
-        v-for="(item,i) in items"
-        :key="i"
-        :src="item.src"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
-    </v-carousel>
+      <v-carousel height="500" hide-delimiter-background show-arrows-on-hover>
+        <v-carousel-item
+          v-for="(item,i) in items"
+          :key="i"
+          :src="item.src"
+          reverse-transition="fade-transition"
+          transition="fade-transition"
+        >
+          <v-row
+            v-for="(slide, i) in slides"
+            :key="i"
+            class="fill-height"
+            align="center"
+            justify="center"
+          >
+            <div class="display-3"><h3>{{ slide }} Slide</h3></div>
+          </v-row>
+        </v-carousel-item>
+      </v-carousel>
     </div>
-    
 
     <Developer/>
   </div>
 </template>
+<style scoped>
+::v-deep .v-image__image,
+.v-image__placeholder {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.display-3{
+  color:white;
+  font-size: 20px;
+  margin: 20%;
+}
+h3{
+  font-size:30px;
+}
+</style>
+
 <script>
 import Sidebar from "../components/Sidebar.vue";
 import Developer from "../components/Developer.vue";
@@ -42,7 +70,7 @@ export default {
           src: require("@/assets/dog.jpeg")
         }
       ],
-      slides: ["First", "Second", "Third", "Fourth", "Fifth"]
+      slides: ["Mission:To create connection between people and environmental organizations to bring change in the environment through collaboration.", "Second", "Third", "Fourth", "Fifth"]
     };
   },
   components: {

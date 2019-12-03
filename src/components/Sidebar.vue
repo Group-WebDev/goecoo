@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-simple-table fixed-header>
+  <div class="headertable">
+    <v-simple-table fixed-header >
       <thead class="back">
         <tr>
           <th class="text-left">
@@ -76,6 +76,11 @@
   </div>
 </template>
 <style scoped>
+.headertable{
+  height: 60px;
+
+}
+
 .theme--light.v-data-table.v-data-table--fixed-header thead th {
   background: teal;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.12);

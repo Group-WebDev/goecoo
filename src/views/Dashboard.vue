@@ -9,7 +9,6 @@
           <div id="title">
             <h1>{{event.title}}</h1>
             <img v-bind:src="'http://localhost:5000/static/images/' + event.image" />
-            >
             <h4>Date : {{event.dateEvent}}</h4>
             <h4>Location : {{event.address}}</h4>
             <h4>Posted by : {{event.createdBy}}</h4>
@@ -45,8 +44,19 @@
               <!-- <Imageupload/> -->
             </v-card>
           </template>
-          <h1 class="text-center">Create an Event</h1>
-
+          <template>
+          <v-card class="mx-auto" max-width="400">
+            <!-- <Imageupload /> -->
+            <v-img
+              class="white--text align-end"
+              height="300px"
+              :src="img"
+              @click="$refs.file.click()"
+            ></v-img>
+            <!-- hidden file para sa file handling -->
+            <input type="file" id="file" ref="file" style="display: none" @change="onFileChange()">
+          </v-card>
+        </template>  
           <v-card-text>
             <v-text-field
               ref="name"
@@ -113,11 +123,22 @@
     </div>
   </div>
 </template>
+<style scoped>
+img{
+  height: 400px;
+  width:700px;
+}
+h1{
+  color: teal;
+}
+</style>
 
 
 <script>
 import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
+import Imageupload from "../components/imageupload.vue";
+
 // import CardsOfEvents from "../components/CardsOfEvents.vue"
 export default {
   name: "Dashboard",
@@ -134,7 +155,10 @@ export default {
       date: "",
       address: "",
       menu:'',
-      id:''
+      id:'',
+      file:'',
+    img: require("@/assets/logopictures.jpeg"),
+
     };
   },
   mounted() {
@@ -173,7 +197,11 @@ export default {
             this.events = res.data;
           });
         });
-    }
+    },
+    onFileChange() {
+      this.file = this.$refs.file.files[0];
+      this.img = URL.createObjectURL(this.file);
+    },
   }
 };
 </script>

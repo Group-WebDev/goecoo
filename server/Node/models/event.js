@@ -23,7 +23,7 @@ Schema.statics.getLastEvent = async function() {
 };
 
 Schema.statics.retrieveEvents = async function() {
-  return await this.find();
+  return await this.find().sort({_id:-1});
 };
 
 Schema.statics.getEvent = async function(title) {
@@ -37,7 +37,7 @@ Schema.statics.updateEvent = async function(
   dateEvent,
   address
 ) {
-  return await updateEvent.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address } });
+  return await this.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address } });
 };
 
 Schema.statics.deleteEvent = async function(id) {

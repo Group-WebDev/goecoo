@@ -9,20 +9,26 @@ app.use(
     extended: true
   })
 );
+//   return await updateEvent.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address } });
+
 
 const update = (req, res) => {
   let test = async function() {
-    let events = await event.updateEvent(
-      req.params.id,
-      req.body.data.title,
-      req.body.data.description,
-      req.body.data.dateEvent,
-      req.body.data.address
-    );
-    let events = await event.retrieveEvents();
-    res.status(200).send(events);
-    console.log(events)
-  };
+    try{
+
+      await event.updateEvent(
+        req.params.id,
+        req.body.data.title,
+        req.body.data.description,
+        req.body.data.dateEvent,
+        req.body.data.address,
+      );
+      let events = await event.retrieveEvents();
+      res.status(200).send(events);
+      console.log(events)
+    } catch(err){
+        res.send('error')
+    }};
   test();
 };
 
