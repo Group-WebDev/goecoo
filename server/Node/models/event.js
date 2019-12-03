@@ -35,9 +35,11 @@ Schema.statics.updateEvent = async function(
   title,
   description,
   dateEvent,
-  address
+  address,
+  fileName
+  // image
 ) {
-  return await this.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address } });
+  return await this.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address,'image':fileName} });
 };
 
 Schema.statics.deleteEvent = async function(id) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="about">
     <div v-for="(todos, index)  in todoss" v-bind:key="index">
       <dev
         :picture="todos.picture"
@@ -45,3 +45,4 @@ export default {
   }
 };
 </script>
+

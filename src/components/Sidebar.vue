@@ -1,5 +1,5 @@
 <template>
-  <div class="headertable">
+  <div id="headers">
     <v-simple-table fixed-header >
       <thead class="back">
         <tr>
@@ -124,6 +124,12 @@
   font-size: 17px;
   font-weight: 500;
   line-height: 1rem;
+}
+#headers{
+    position: fixed;
+  top: 0;
+  width: 100%;
+  /* margin-bottom:  */
 }
 </style>
 <script>

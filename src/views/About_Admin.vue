@@ -17,7 +17,7 @@
             align="center"
             justify="center"
           >
-            <div class="display-3"><h3>{{ slide }} Slide</h3></div>
+            <div class="display-3"><h3>{{slide}} Slide</h3></div>
           </v-row>
         </v-carousel-item>
       </v-carousel>
@@ -75,7 +75,7 @@ export default {
   },
   components: {
     Sidebar,
-    Developer
+    Developer,
   },
   methods: {}
 };

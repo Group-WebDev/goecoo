@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Sidebar/>
+  <div id="all">
+    <Sidebar />
     <!-- <CardsOfEvents/> -->
     <table v-for="(event, index) in events" :key="index" v-bind:update="false" v-show="!update">
       <tbody id="tbody" style="margin-left : 20%">
@@ -13,51 +13,67 @@
             <h4>Location : {{event.address}}</h4>
             <h4>Posted by : {{event.createdBy}}</h4>
           </div>
-          <hr>
+          <hr />
           <h5>{{event.description}}</h5>
-          <hr>
-          <hr>
+          <hr />
+          <hr />
           <div id="buttons">
             <v-btn
               @click.prevent="update = true"
-              @click="editEvent(event._id, event.title, event.dateEvent,event.description,event.address)"
+              @click="editEvent(event._id, event.title, event.dateEvent,event.description,event.address,event.image)"
               class="mx-2"
               fab
               dark
               large
               color="cyan"
+              v-if="!del"
             >
               <v-icon dark>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn @click="deleteEvent(event._id)" class="mx-2" fab dark large color="red">
+            <v-btn @click="del = true" class="mx-2" v-if="!del" fab dark large color="red">
               <v-icon dark>mdi-delete</v-icon>
             </v-btn>
+            <!-- delete -->
+            <div v-if="del">
+              <v-btn
+                class="ma-2"
+                tile
+                outlined
+                @click="deleteEvent(event._id),del=false"
+                color="primary"
+              >
+                <v-icon left>mdi-delete</v-icon>DELETE
+              </v-btn>
+              <v-btn class="ma-2" tile color="red" dark @click="del=false">CANCEL</v-btn>
+            </div>
           </div>
         </tr>
       </tbody>
     </table>
+    <!-- update -->
     <div v-show="update">
       <table>
         <v-card ref="form">
-          <template>
-            <v-card class="mx-auto" max-width="400">
-              <!-- <Imageupload/> -->
-            </v-card>
-          </template>
-          <template>
-          <v-card class="mx-auto" max-width="400">
-            <!-- <Imageupload /> -->
-            <v-img
-              class="white--text align-end"
-              height="300px"
-              :src="img"
-              @click="$refs.file.click()"
-            ></v-img>
-            <!-- hidden file para sa file handling -->
-            <input type="file" id="file" ref="file" style="display: none" @change="onFileChange()">
-          </v-card>
-        </template>  
           <v-card-text>
+            <template>
+              <v-card class="mx-auto" max-width="400">
+                <!-- <Imageupload /> -->
+                <v-img
+                  class="white--text align-end"
+                  height="300px"
+                  :src="img"
+                  @click="$refs.file.click()"
+                ></v-img>
+                <!-- hidden file para sa file handling -->
+                <input
+                  type="file"
+                  id="file"
+                  ref="file"
+                  style="display: none"
+                  @change="onFileChange()"
+                />
+              </v-card>
+            </template>
             <v-text-field
               ref="name"
               v-model="title"
@@ -100,7 +116,6 @@
               v-model="description"
               auto-grow
             ></v-textarea>
-            <v-file-input label="File input" filled prepend-icon="fas fa-camera-retro"></v-file-input>
             <v-text-field
               v-model="address"
               prepend-icon="fas fa-map-marker-alt"
@@ -112,11 +127,10 @@
           <v-divider class="mt-12"></v-divider>
 
           <v-card-actions>
-            <v-btn text>Cancel</v-btn>
+            <v-btn text @click="update = false">Cancel</v-btn>
             <v-spacer></v-spacer>
-            <v-slide-x-reverse-transition>
-            </v-slide-x-reverse-transition>
-            <v-btn @click.prevent="update = false" color="primary" @click="submit" text >Update</v-btn>
+            <v-slide-x-reverse-transition></v-slide-x-reverse-transition>
+            <v-btn @click.prevent="update = false" color="primary" @click="submit" text>Update</v-btn>
           </v-card-actions>
         </v-card>
       </table>
@@ -124,11 +138,11 @@
   </div>
 </template>
 <style scoped>
-img{
+img {
   height: 400px;
-  width:700px;
+  width: 700px;
 }
-h1{
+h1 {
   color: teal;
 }
 </style>
@@ -151,14 +165,15 @@ export default {
       events: [],
       update: false,
       title: "",
+      del: false,
       description: "",
       date: "",
       address: "",
-      menu:'',
-      id:'',
-      file:'',
-    img: require("@/assets/logopictures.jpeg"),
-
+      menu: "",
+      id: "",
+      file: "",
+      image: "",
+      img: require("@/assets/logopictures.jpeg")
     };
   },
   mounted() {
@@ -174,24 +189,40 @@ export default {
         });
       });
     },
-    editEvent(id, title, dateEvent, description, address) {
-    (this.id = id),
-      (this.title = title),
+    editEvent(id, title, dateEvent, description, address, image) {
+      (this.id = id),
+        (this.title = title),
         (this.date = dateEvent),
         (this.description = description),
-        (this.address = address);
-
+        (this.address = address),
+        (this.image = image);
+      console.log(image);
+      // http://localhost:5000/static/images/
+      this.img = "http://localhost:5000/static/images/" + image;
     },
-    submit(){
+    submit() {
       var data = {
         title: this.title,
         dateEvent: this.date,
         description: this.description,
-        address: this.address
+        address: this.address,
+        filename: this.file
       };
-      console.log(data)
+  console.log(this.file)
+      let formData = new FormData();
+
+      formData.append("image", this.file);
+      formData.append("title", this.title);
+      formData.append("dateEvent", this.date);
+      formData.append("description", this.description);
+      formData.append("address", this.address);
+
+      console.log(formData);
+        
       axios
-        .put("http://localhost:5000/event/update" + this.id, { data })
+        .put("http://localhost:5000/event/update" + this.id, formData, { headers: {
+      'Content-Type': 'multipart/form-data'}
+    })
         .then(res => {
           axios.get("http://localhost:5000/event/retrieveAll").then(res => {
             this.events = res.data;
@@ -201,7 +232,7 @@ export default {
     onFileChange() {
       this.file = this.$refs.file.files[0];
       this.img = URL.createObjectURL(this.file);
-    },
+    }
   }
 };
 </script>
@@ -216,6 +247,9 @@ table {
   background-color: white;
   border-radius: 3px;
 }
+#all {
+  margin-top: 5%;
+}
 table #tbody {
   border-style: groove;
 }
@@ -224,5 +258,6 @@ table #tbody {
 }
 #buttons {
   text-align: right;
+  margin-top: 1%;
 }
 </style>

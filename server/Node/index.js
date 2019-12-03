@@ -108,9 +108,9 @@ app.post('/subscribe', function (req, res) {
 })
 
 app.post('/event/create',upload.single('image'), (req, res) => {
-  console.log(req.body, 'the file')
+  // console.log(req.body, 'the file')
   create.createEvent(req, res);
-})
+})  
 app.get('/event/retrieveAll', (req, res) => {
   retrieveAll.retrieve(req, res);
 })
@@ -120,7 +120,7 @@ app.get('/event/retrievebytitle', (req, res) => {
 app.delete('/event/delete:id', (req, res) => {
   remove.remove(req, res);
 })
-app.put('/event/update:id', (req, res) => {
+  app.put('/event/update:id', upload.single('image'),(req, res) => {
   update.update(req, res);
 })
 

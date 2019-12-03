@@ -191,13 +191,6 @@ export default {
       });
     },
     submit() {
-      var data = {
-        image: this.file,
-        title: this.title,
-        dateevent: this.date,
-        description: this.description,
-        address: this.address
-      };
       /*
                 Initialize the form data
             */
@@ -211,23 +204,7 @@ export default {
 
       // formData.append("img", this.file);
 
-      /*
-          Make the request to the POST /single-file URL
-      //   */
-      // axios
-      //   .post("http://localhost:3000/", formData, {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data"
-      //     }
-      //   })
-      //   .then((res)=> {
-      //     console.log(res);
-
-      //    this.imgUrl = res.data.filename;
-      //   })
-      //   .catch((err)=> {
-      //     console.log(err);
-      //   });
+      
       if(this.title && this.description && this.address != null){
       axios.post('http://localhost:5000/event/create',formData)
           .then(res => {
