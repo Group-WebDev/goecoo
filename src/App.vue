@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <Header style="margin-top:5%:" v-if="$route.name !== 'login'"></Header>
-    <!-- <Sidebar /> -->  
+    <Header style="margin-top:5%:" v-if="$route.name !== 'home'"></Header>
+    <Sidebar />  
     <v-content>
       <router-view/>
     </v-content>
@@ -12,7 +12,11 @@
 </style>
 
 <script>
+import Sidebar from "@/components/Sidebar"
 export default {
   name: "App",
+  components:{
+    Sidebar
+  }
 };
 </script>

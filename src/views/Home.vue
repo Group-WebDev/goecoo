@@ -1,6 +1,9 @@
 <template>
 <div id="app">
   <Carousel/>
+  <v-container>
+    <Event/>
+  </v-container>
   <Content/>
 </div>
 </template>
@@ -8,11 +11,13 @@
 <script>
 // @ is an alias to /src
 import Carousel from "@/components/Common/Carousel.vue";
-import Content from "@/components/Content.vue"
+import Event from "@/components/Events"
+// import Content from "@/components/Content.vue"
 export default {
     components:{
       Carousel,
-      Content
+      Event
+      // Content
     }
 }
 </script>

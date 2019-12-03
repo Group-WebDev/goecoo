@@ -1,8 +1,7 @@
 <template>
   <div>
-    <Sidebar/>
     <div>
-      <v-carousel height="500" hide-delimiter-background show-arrows-on-hover>
+      <v-carousel class="carousel" cycle height="500" hide-delimiter-background show-arrows-on-hover>
         <v-carousel-item
           v-for="(item,i) in items"
           :key="i"
@@ -17,16 +16,19 @@
             align="center"
             justify="center"
           >
-            <div class="display-3"><h3>{{ slide }} Slide</h3></div>
+            <div class="display-3"><h3>{{ slide }}</h3></div>
           </v-row>
         </v-carousel-item>
       </v-carousel>
     </div>
-
+    <h1>DEVELOPERS:</h1>
     <Developer/>
   </div>
 </template>
 <style scoped>
+.carousel{
+  margin-top: 60px;
+}
 ::v-deep .v-image__image,
 .v-image__placeholder {
   position: absolute;
@@ -39,14 +41,16 @@
   color:white;
   font-size: 20px;
   margin: 20%;
+   background-color:transparent;
 }
 h3{
   font-size:30px;
+    background-color:transparent;
+    width: 100%;
 }
 </style>
 
 <script>
-import Sidebar from "../components/Sidebar.vue";
 import Developer from "../components/Developer.vue";
 
 export default {
@@ -74,7 +78,7 @@ export default {
     };
   },
   components: {
-    Sidebar,
+    // Sidebar,
     Developer
   },
   methods: {}

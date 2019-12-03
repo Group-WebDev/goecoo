@@ -1,11 +1,9 @@
 <template>
   <div>
-    <sidebar/>
     <InputEvent/>
   </div>
 </template>
 <script>
-import sidebar from "../components/Sidebar.vue";
 import InputEvent from "../components/InputEvent.vue";
 
 export default {
@@ -14,7 +12,6 @@ export default {
     drawer: true
   }),
   components: {
-    sidebar,
     InputEvent
   },
 

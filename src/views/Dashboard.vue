@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Sidebar/>
+    <!-- <Sidebar/> -->
     <!-- <CardsOfEvents/> -->
-    <table v-for="(event, index) in events" :key="index" v-bind:update="false" v-show="!update">
+    <table class="tableEventHolder" v-for="(event, index) in events" :key="index" v-bind:update="false" v-show="!update">
       <tbody id="tbody" style="margin-left : 20%">
         <tr style="margin-top:2%">
           <h4>{{event.dateCreated}}</h4>
@@ -44,19 +44,7 @@
               <!-- <Imageupload/> -->
             </v-card>
           </template>
-          <template>
-          <v-card class="mx-auto" max-width="400">
-            <!-- <Imageupload /> -->
-            <v-img
-              class="white--text align-end"
-              height="300px"
-              :src="img"
-              @click="$refs.file.click()"
-            ></v-img>
-            <!-- hidden file para sa file handling -->
-            <input type="file" id="file" ref="file" style="display: none" @change="onFileChange()">
-          </v-card>
-        </template>  
+          
           <v-card-text>
             <v-text-field
               ref="name"
@@ -100,7 +88,6 @@
               v-model="description"
               auto-grow
             ></v-textarea>
-            <v-file-input label="File input" filled prepend-icon="fas fa-camera-retro"></v-file-input>
             <v-text-field
               v-model="address"
               prepend-icon="fas fa-map-marker-alt"
@@ -136,14 +123,13 @@ h1{
 
 <script>
 import axios from "axios";
-import Sidebar from "../components/Sidebar.vue";
-import Imageupload from "../components/imageupload.vue";
+// import Sidebar from "../components/Sidebar.vue";
+// import Imageupload from "../components/imageupload.vue";
 
 // import CardsOfEvents from "../components/CardsOfEvents.vue"
 export default {
   name: "Dashboard",
   components: {
-    Sidebar
     // CardsOfEvents
   },
   data() {
@@ -224,5 +210,8 @@ table #tbody {
 }
 #buttons {
   text-align: right;
+}
+.tableEventHolder{
+  margin-top:70px;
 }
 </style>

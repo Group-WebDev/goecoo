@@ -2,22 +2,29 @@
 <template>
   <v-row justify="center">
     <v-col cols="12" sm="10" md="8" lg="6">
-      <v-card ref="form">
+      <v-card id="events" ref="form">
         <h2 class="teal--text text--lighten-1 text-center">Create an Event</h2>
         <template>
-          <v-card class="mx-auto" max-width="400">
-            <!-- <Imageupload /> -->
+          <v-card class="mx-auto" max-width="400" max-height="300">
+            <center>
+            <!-- <v-flex > -->
             <v-img
+              id="uploadImage"
               class="white--text align-end"
               height="300px"
+              width="400px"
+              top="50px"
               :src="img"
               @click="$refs.file.click()"
             ></v-img>
+            </center>
+          </v-card>
+
+            <!-- </v-flex> -->
             <!-- hidden file para sa file handling -->
             <input type="file" id="file" ref="file" style="display: none" @change="onFileChange()">
-          </v-card>
+          <!-- </v-card> -->
         </template>
-        <!-- <imageupload /> -->
         <v-card-text>
           <!-- For input of title -->
           <v-text-field
@@ -94,7 +101,13 @@
   </v-row>
 </template>
 
-<style>
+<style scoped>
+.uploadImage{
+  margin-top:50px;
+}
+#events{
+  margin-top: 50px;
+}
 .v-application .text-center {
   text-align: center !important;
   font-size: 46px;
@@ -108,26 +121,28 @@ element.style {
   width: 60%;
   /* align-self: center; */
   margin-top: 7%;
-  margin-left: 20%;
+  /* margin-left: 20%; */
 }
 .v-image__image,
 .v-image__placeholder {
   z-index: -1;
   position: absolute;
   top: 10%;
-  left: 20%;
-  width: 60%;
-  height: 80%;
+  /* left: 20%; */
+  width: 100%;
+  height: 100%;
+}
+.mx-auto{
+  height: 300px;
 }
 </style>
 
 <script>
 import axios from "axios";
-import Imageupload from "../components/imageupload.vue";
 export default {
   name: "InputEvent",
   data: () => ({
-    img: require("@/assets/logopictures.jpeg"),
+    img: require("@/assets/uploadImage.png"),
     file: "",
     date: new Date().toISOString().substr(0, 10),
     menu: false,
@@ -141,9 +156,7 @@ export default {
     scale: 1,
     borderRadius: 0
   }),
-  // components:{
-  //   Imageupload
-  // },
+
 
   computed: {
     form() {

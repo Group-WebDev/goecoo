@@ -20,15 +20,16 @@ export default {
   data() {
     return {
       todoss: [
-        {
-          picture: require("@/assets/burce.jpg"),
-          name: "Jerome P. Burce",
-          position: "Front-End Developer"
-        },
+        
         {
           picture: require("@/assets/cabia-an.jpg"),
           name: "John Patrick Cabia-an",
           position: "Project Manager"
+        },
+        {
+          picture: require("@/assets/burce.jpg"),
+          name: "Jerome P. Burce",
+          position: "Front-End Developer"
         },
         {
           picture: require("@/assets/morre.jpg"),

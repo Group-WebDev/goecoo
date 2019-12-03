@@ -10,9 +10,9 @@ export function deleteStudent(id){
                 .then(response => response.data)
                 .catch(err => Promise.reject(err.message));
 }
-export function createStudent(data) {
-        return axios.post(`${BASE_URL}/student/create`, 
-        { fullname: data.fullname, batch: data.batch, username:data.username, email:data.email, password:data.password}
+export function createUser(data) {
+        return axios.post(`${BASE_URL}/subscriber/create`, 
+        { firstname:data.firstname,lastname:data.lastname,middlename:data.middlename, email:data.email,address:data.address }
         )      .then(response => {
                         alert(response)
                         return response.data

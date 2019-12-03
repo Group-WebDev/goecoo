@@ -8,7 +8,7 @@
               <v-icon  color="white">fas fa-bars</v-icon>
             </v-btn>
             <v-list-item-avatar>
-              <v-img src="../assets/go-eco.png"></v-img>
+              <v-img class="logoInNavBar" src="../assets/go-eco.png"></v-img>
             </v-list-item-avatar>&nbsp;&nbsp;&nbsp;GoEco
           </th>
           <th class="text-right">
@@ -76,9 +76,18 @@
   </div>
 </template>
 <style scoped>
+
 .headertable{
   height: 60px;
-
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+.v-image__image, .v-image__placeholder {
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .theme--light.v-data-table.v-data-table--fixed-header thead th {

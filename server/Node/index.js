@@ -8,7 +8,8 @@ const createAdmin = require('./admin/createAdmin');
 const subscribe = require('./subscriber/subscribe');
 const create  = require('./events/create');
 const retrieveAll = require('./events/retrieveAll');
-const retrieveByTitle = require('./events/retrieveByTitle')
+const retrieveByTitle = require('./events/retrieveByTitle');
+const retrieveSubscriber =require('./subscriber/retrieveSubscribers')
 const remove = require('./events/delete');
 const update = require('./events/update');
 const multer = require('multer');
@@ -106,7 +107,12 @@ app.post('/admin', function (req, res) {
 app.post('/subscribe', function (req, res) {
   subscribe.subscribe(req, res);
 })
-
+app.post('/subscribers/create',function(req,res){
+  subscribe.retrieveSubscribers(req,res);
+})
+app.get('/subscribers/retrieveAll', function(req, res){
+  retrieveSubscriber.retrieveSubscribers(req,res)
+})
 app.post('/event/create',upload.single('image'), (req, res) => {
   console.log(req.body, 'the file')
   create.createEvent(req, res);
