@@ -1,5 +1,5 @@
 <template>
-<v-container class="mx-auto" max-width="800" id="card">
+<v-container class="mx-auto" max-width="1000" id="card">
            <v-img id="logo" :src="require('@/assets/icon.png')"></v-img>
         <p>Connect People to Environmental Activities</p>
 </v-container>
@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #card{
     height: 100%;
     background-color:transparent;

@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home_Admin from "../views/Home_Admin.vue";
 import Admin from "../views/Login.vue"
-import Home from "../views/Home.vue";
+import Home from "../views/Home_subscriber.vue";
 // import Sidebar from "../components/Sidebar.vue";
 import Dashboard from "../views/Dashboard.vue";
 import SubscriberList from "../views/Subscriber_List.vue";

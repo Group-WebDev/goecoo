@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 var Schema = new mongoose.Schema({
-    username: {type:String,  unique:true},
-    email: {type: String, require: true},
-    address: {type: String, require: true},
-    seen:{type: Boolean, default:false}
-
+    firstname: {type:String},
+    lastname:{type:String},
+    middlename:{type:String},
+    email: {type: String, unique:true},
+    address: {type: String},
+    seen:{type:Boolean, default:false}
  });
 
  Schema.statics.addSubscriber = async function (subscriber){
@@ -18,13 +19,19 @@ var Schema = new mongoose.Schema({
  Schema.statics.getLastSubscriber = async function() {
     return await this.findOne().sort({_id:-1}).limit(1);
  }
+
+ Schema.statics.retrieveSubscriber = async function(){
+     return await this.find()
+ }
  
- Schema.statics.getByUsername = async function(username) {
-    return await this.findOne({"username" : username});
+ Schema.statics.getByUsername = async function(email) {
+    return await this.findOne({"email" : email});
  }
 
  Schema.statics.notification = async function(){
-   return await this.count({seen: false})
+   var count =  await this.countDocuments({"seen":false})
+   console.log("count",count)
+   return count;
  }
 
  module.exports = mongoose.model('subscriber', Schema);
