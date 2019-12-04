@@ -46,6 +46,4 @@ Schema.statics.deleteEvent = async function(id) {
   return await this.deleteOne({ _id: id });
 };
 
-
-
 module.exports = mongoose.model("event", Schema);
