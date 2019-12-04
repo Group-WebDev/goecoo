@@ -8,15 +8,6 @@
         </v-badge>
       </button>
     </div>
-    <div>
-      <table v-if="viewNotif" id = "table">
-        <tr v-for="(subscriber,index) in newSubscribers" :key="index">
-          <td>
-            {{subscriber.email}}
-          </td>
-        </tr>
-      </table>
-    </div>
   </div>
 </template>
 <script>
@@ -51,7 +42,8 @@ export default {
       })
     },
     isseen() {
-      this.retrieveSubscribers()
+      // this.retrieveSubscribers()
+      this.$router.push("/admin/subscribers")
       this.viewNotif = true
       axios
         .put("http://localhost:5000/subscriber/updateisSeen")
@@ -64,7 +56,6 @@ export default {
           console.log("error!");
         });
     },
-   
   }
 };
 </script>
