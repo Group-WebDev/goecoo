@@ -2,11 +2,20 @@
   <div>
     <div class="text-center">
       <button @click="isseen">
-      <v-badge class="notification">
-        <template v-slot:badge>{{notification}}</template>
-        <v-icon>mdi-email</v-icon>
-      </v-badge>
+        <v-badge class="notification">
+          <template v-slot:badge>{{notification}}</template>
+          <v-icon>mdi-email</v-icon>
+        </v-badge>
       </button>
+    </div>
+    <div>
+      <table v-if="viewNotif" id = "table">
+        <tr v-for="(subscriber,index) in newSubscribers" :key="index">
+          <td>
+            {{subscriber.email}}
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -16,7 +25,10 @@ export default {
   name: "Notification",
   data() {
     return {
-      notification: 2
+      notification: 2,
+      newSubscribers: [],
+      viewNotif : false,
+
     };
   },
   // number of subscribers
@@ -31,10 +43,28 @@ export default {
         console.log(err);
       });
   },
-  methods:{
-    isseen(){
-      
-    }
+  methods: {
+     retrieveSubscribers(){
+      axios.get("http://localhost:5000/subscribers/retrieveAll")
+      .then(res =>{
+        this.newSubscribers = res.data
+      })
+    },
+    isseen() {
+      this.retrieveSubscribers()
+      this.viewNotif = true
+      axios
+        .put("http://localhost:5000/subscriber/updateisSeen")
+        .then(res => {
+          axios.post("http://localhost:5000/subcriber/notification");
+          this.notification = res.data;
+          console.log("updated");
+        })
+        .catch(err => {
+          console.log("error!");
+        });
+    },
+   
   }
 };
 </script>
@@ -62,5 +92,10 @@ export default {
   border-radius: 50%;
   background-color: red;
   color: white;
+}
+#table {
+  height: 500px;
+  overflow-y: scroll;
+  width: 100%
 }
 </style>

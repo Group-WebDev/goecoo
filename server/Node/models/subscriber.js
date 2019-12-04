@@ -21,7 +21,7 @@ var Schema = new mongoose.Schema({
  }
 
  Schema.statics.retrieveSubscriber = async function(){
-     return await this.find()
+     return await this.find().sort({_id : -1})
  }
  
  Schema.statics.getByUsername = async function(email) {

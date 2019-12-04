@@ -7,6 +7,7 @@ const verify = require('./admin/verifyToken');
 const createAdmin = require('./admin/createAdmin');
 const subscribe = require('./subscriber/subscribe');
 const subscribe_notification = require('./subscriber/notification')
+const subscribe_notifUPdate = require('./subscriber/isseenNotif')
 const create  = require('./events/create');
 const retrieveAll = require('./events/retrieveAll');
 const retrieveByTitle = require('./events/retrieveByTitle')
@@ -109,7 +110,9 @@ app.post('/subscribe', function (req, res) {
 app.post('/subcriber/notification', function (req,res){
   subscribe_notification.notification(req,res)
 })
-
+app.put('/subscriber/updateisSeen', function (req, res){
+  subscribe_notifUPdate.isseen(req,res)
+})
 app.get('/subscribers/retrieveAll', function(req, res){
   retrieveSubscriber.retrieveSubscribers(req, res)
 })

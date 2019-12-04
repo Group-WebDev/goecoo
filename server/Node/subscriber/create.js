@@ -14,7 +14,9 @@ const createSubscriber = (req,res) =>{
     let test = async function (){
         try{
         var newsubs = {
-            username : data.username,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            middlename : data.middlename,
             email : data.email,
             address : data.address
         }
