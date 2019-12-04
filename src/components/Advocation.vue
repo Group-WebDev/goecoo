@@ -1,14 +1,13 @@
 <template>
 <v-container class="mx-auto" max-width="800" id="card">
-           <v-img id="logo" :src="require('@/assets/icon.png')"></v-img>
+        <v-img id="logo" :src="require('@/assets/icon.png')"></v-img>
         <p>Connect People to Environmental Activities</p>
 </v-container>
 </template>
 
 <script>
 export default {
-
-}
+name:"home"}
 </script>
 
 <style scoped>

@@ -1,22 +1,27 @@
 <template>
   <v-app>
     <Header style="margin-top:5%:" v-if="$route.name !== 'home'"></Header>
-    <Sidebar />  
+    <Sidebar v-show="($route.name == 'admin'|| $route.name == 'home')? false : true" />  
     <v-content>
       <router-view/>
     </v-content>
   </v-app>
 </template>
-<style>
+<style scoped>
 
 </style>
 
 <script>
 import Sidebar from "@/components/Sidebar"
 export default {
+  data(){
+  
+  },
   name: "App",
   components:{
     Sidebar
+  },
+  method:{
   }
 };
 </script>

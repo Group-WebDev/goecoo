@@ -10,6 +10,9 @@
     </div>
   </div>
 </template>
+<style scoped>
+
+</style>
 
 <script>
 import dev from "@/components/Dev.vue";

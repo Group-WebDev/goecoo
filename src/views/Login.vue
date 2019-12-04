@@ -34,7 +34,7 @@
     </v-flex>
   </div>
 </template>
-<style>
+<style scoped>
 h1,
 h2 {
   font-weight: normal;
@@ -43,7 +43,7 @@ h2 {
 
 .v-content__wrap {
   -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
+  /* -ms-flex: 1 1 auto; */
   flex: 1 1 auto;
   max-width: 100%;
   position: relative;
@@ -63,10 +63,16 @@ h2 {
   width: 60%;
   height: 60%;
 }
+body{
+  background-image: url("../assets/greengrass.jpeg");
+  width: 100%;
+  height: 100%;
+}
 </style>
 <script>
 import axios from "axios";
 export default {
+  name:"admin",
   data() {
     return {
       show1: false,
