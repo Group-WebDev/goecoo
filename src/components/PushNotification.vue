@@ -43,7 +43,7 @@ export default {
     },
     isseen() {
       // this.retrieveSubscribers()
-      this.$router.push("/admin/subscribers")
+      this.$router.push("/admin/subscriberlist")
       this.viewNotif = true
       axios
         .put("http://localhost:5000/subscriber/updateisSeen")

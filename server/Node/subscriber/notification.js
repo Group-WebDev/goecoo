@@ -9,15 +9,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 const notification = (req, res) =>{
-    console.log("irish")
     let test = async function (){
         try{
             var countNotification = await subscriber.notification()
             console.log("countnotidsf, ", countNotification)
-            // res.send(countNotification)
             res.json(countNotification)
-            // res.send(countNotification)
-            // res.send(count)
         }catch{
             res.status(400).send("0")
         }
