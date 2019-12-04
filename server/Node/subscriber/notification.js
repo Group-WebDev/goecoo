@@ -15,8 +15,8 @@ const notification = (req, res) =>{
             var countNotification = await subscriber.notification()
             console.log("countnotidsf, ", countNotification)
             // res.send(countNotification)
-            res.sendStatus(200)
-            res.send(countNotification)
+            res.json(countNotification)
+            // res.send(countNotification)
             // res.send(count)
         }catch{
             res.status(400).send("0")
@@ -24,5 +24,6 @@ const notification = (req, res) =>{
     }
     test()
 }
+
 
 module.exports = { notification }

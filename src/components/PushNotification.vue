@@ -1,10 +1,12 @@
 <template>
   <div>
     <div class="text-center">
+      <button @click="isseen">
       <v-badge class="notification">
         <template v-slot:badge>{{notification}}</template>
         <v-icon>mdi-email</v-icon>
       </v-badge>
+      </button>
     </div>
   </div>
 </template>
@@ -28,6 +30,11 @@ export default {
       .catch(err => {
         console.log(err);
       });
+  },
+  methods:{
+    isseen(){
+      
+    }
   }
 };
 </script>
