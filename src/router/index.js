@@ -7,6 +7,7 @@ import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
 import SubscriberList from "../views/Subscriber_List.vue";
 import AddEvent from "../components/AddEvent.vue";
+import Notification from "../components/PushNotification.vue"
 import { homedir } from "os";
 Vue.use(VueRouter);
 
@@ -104,6 +105,11 @@ const routes = [
     name: "about",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+  path : "/notifications",
+  name:'notification',
+  component: Notification
   }
 ];
 

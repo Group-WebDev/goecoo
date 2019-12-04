@@ -11,6 +11,9 @@
               <v-img src="../assets/go-eco.png"></v-img>
             </v-list-item-avatar>&nbsp;&nbsp;&nbsp;GoEco
           </th>
+          <th>
+            <Notification/>
+          </th>
           <th class="text-right">
             <v-btn link @click="logout()" class="mx-2" fab dark color="teal">
               <v-icon dark>fas fa-sign-out-alt</v-icon>
@@ -133,9 +136,13 @@
 }
 </style>
 <script>
+import Notification from "./PushNotification"
 import axios from "axios";
 export default {
   name: "sidebar",
+  components:{
+    Notification
+  },
 
   data: () => ({
     drawer: false
