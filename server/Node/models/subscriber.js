@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 
 var Schema = new mongoose.Schema({
     username: {type:String,  unique:true},
-    email: {type: String},
-    address: {type: String}
+    email: {type: String, require: true},
+    address: {type: String, require: true},
+    seen:{type: Boolean, default:false}
+
  });
 
  Schema.statics.addSubscriber = async function (subscriber){
@@ -19,6 +21,10 @@ var Schema = new mongoose.Schema({
  
  Schema.statics.getByUsername = async function(username) {
     return await this.findOne({"username" : username});
+ }
+
+ Schema.statics.notification = async function(){
+   return await this.countDocument({seen: false})
  }
 
  module.exports = mongoose.model('subscriber', Schema);

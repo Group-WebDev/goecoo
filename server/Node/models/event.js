@@ -7,7 +7,7 @@ var Schema = new mongoose.Schema({
   address: { type: String, required: true },
   description: { type: String, required: true },
   createdBy: { type: String, required: true },
-  image:{type:String, required:true}
+  image:{type:String, required:true},
 });
 
 Schema.statics.addEvent = async function(event) {
@@ -43,5 +43,7 @@ Schema.statics.updateEvent = async function(
 Schema.statics.deleteEvent = async function(id) {
   return await this.deleteOne({ _id: id });
 };
+
+
 
 module.exports = mongoose.model("event", Schema);
