@@ -19,7 +19,7 @@ var Schema = new mongoose.Schema({
     return await this.findOne().sort({_id:-1}).limit(1);
  }
 
- Schema.statics.retrieveSubscribers = async function(){
+ Schema.statics.retrieveSubscriber = async function(){
     return await this.find();
  }
  

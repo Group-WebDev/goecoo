@@ -1,24 +1,26 @@
 <template>
   <div class="headertable">
-    <v-simple-table fixed-header >
-      <thead class="back">
-        <tr>
-          <th class="text-left">
-            <v-btn @click.stop="drawer = !drawer" x-medium color="teal" height="50">
-              <v-icon  color="white">fas fa-bars</v-icon>
+    <v-app-bar
+      absolute
+      color="teal accent-4"
+      dark
+      fix
+      class="appbar"
+    >
+            <v-btn @click.stop="drawer = !drawer" x-medium color="teal" height="50" icon>
+              <v-icon color="white">fas fa-bars</v-icon>
             </v-btn>
             <v-list-item-avatar>
               <v-img class="logoInNavBar" src="../assets/go-eco.png"></v-img>
-            </v-list-item-avatar>&nbsp;&nbsp;&nbsp;GoEco
-          </th>
-          <th class="text-right">
-            <v-btn link @click="logout()" class="mx-2" fab dark color="teal">
+            </v-list-item-avatar>
+                  <v-toolbar-title>GoEco</v-toolbar-title>
+
+
+            <v-spacer></v-spacer>
+            <v-btn link @click="logout()" class="mx-2" fab dark color="teal" icon>
               <v-icon dark>fas fa-sign-out-alt</v-icon>
             </v-btn>
-          </th>
-        </tr>
-      </thead>
-    </v-simple-table>
+    </v-app-bar>
     <v-navigation-drawer height="910" class="overflow-hidden" v-model="drawer" absolute temporary>
       <v-list-item>
         <v-list-item-avatar>
@@ -70,24 +72,23 @@
     </v-navigation-drawer>
 
     <v-container fluid>
-      <v-row dense>
-      </v-row>
+      <v-row dense></v-row>
     </v-container>
   </div>
 </template>
 <style scoped>
-
-.headertable{
+.headertable {
   height: 60px;
   position: fixed;
   width: 100%;
   z-index: 1;
 }
-.v-image__image, .v-image__placeholder {
-    z-index: -1;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+.v-image__image,
+.v-image__placeholder {
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .theme--light.v-data-table.v-data-table--fixed-header thead th {
@@ -134,6 +135,9 @@
   font-weight: 500;
   line-height: 1rem;
 }
+.appbar{
+  height: 20%;
+}
 </style>
 <script>
 import axios from "axios";
@@ -145,16 +149,16 @@ export default {
   }),
   methods: {
     dashboard() {
-      this.$router.push("dashboard").catch(err => {})
+      this.$router.push("dashboard").catch(err => {});
     },
     subscriber() {
-      this.$router.push("subscriberlist").catch(err => {})
+      this.$router.push("subscriberlist").catch(err => {});
     },
     addevent() {
-      this.$router.push("/admin/addevent").catch(err => {})
+      this.$router.push("/admin/addevent").catch(err => {});
     },
     aboutus() {
-      this.$router.push("/admin/about").catch(err => {})
+      this.$router.push("/admin/about").catch(err => {});
     },
     logout() {
       // this.$store.dispatch('logout')

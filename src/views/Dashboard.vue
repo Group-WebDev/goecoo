@@ -1,51 +1,92 @@
 <template>
-  <div>
-    <!-- <Sidebar/> -->
+  <div id="all">
+    <center><span class="title">Events</span></center>
+    <v-text-field
+      v-model="search"
+      append-icon="search"
+      label="Search Event Name"
+      single-line
+      hide-details
+      class="searchbar"
+    ></v-text-field>
     <!-- <CardsOfEvents/> -->
-    <table class="tableEventHolder" v-for="(event, index) in events" :key="index" v-bind:update="false" v-show="!update">
-      <tbody id="tbody" style="margin-left : 20%">
-        <tr style="margin-top:2%">
-          <h4>{{event.dateCreated}}</h4>
-          <div id="title">
-            <h1>{{event.title}}</h1>
-            <img v-bind:src="'http://localhost:5000/static/images/' + event.image" />
-            <h4>Date : {{event.dateEvent}}</h4>
-            <h4>Location : {{event.address}}</h4>
-            <h4>Posted by : {{event.createdBy}}</h4>
-          </div>
-          <hr>
-          <h5>{{event.description}}</h5>
-          <hr>
-          <hr>
-          <div id="buttons">
-            <v-btn
-              @click.prevent="update = true"
-              @click="editEvent(event._id, event.title, event.dateEvent,event.description,event.address)"
-              class="mx-2"
-              fab
-              dark
-              large
-              color="cyan"
-            >
-              <v-icon dark>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn @click="deleteEvent(event._id)" class="mx-2" fab dark large color="red">
-              <v-icon dark>mdi-delete</v-icon>
-            </v-btn>
-          </div>
-        </tr>
-      </tbody>
-    </table>
+    <div v-for="(event, index) in filteredList" :key="index" v-bind:update="false" v-show="!update">
+      <div>
+        <div style="margin-top:2%">
+          <v-card class="card">
+            <v-container class="container">
+              <h4>{{event.dateCreated}}</h4>
+              <div id="title">
+                <h1>{{event.title}}</h1>
+                <img v-bind:src="'http://localhost:5000/static/images/' + event.image">
+                <h4>Date : {{event.dateEvent}}</h4>
+                <h4>Location : {{event.address}}</h4>
+                <h4>Posted by : {{event.createdBy}}</h4>
+              </div>
+              <hr>
+              <h5>{{event.description}}</h5>
+              <hr>
+              <hr>
+              <div id="buttons">
+                <v-btn
+                  @click.prevent="update = true"
+                  @click="editEvent(event._id, event.title, event.dateEvent,event.description,event.address,event.image)"
+                  class="mx-2"
+                  fab
+                  dark
+                  large
+                  color="cyan"
+                  v-if="!del"
+                >
+                  <v-icon dark>mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn @click="del = true" class="mx-2" v-if="!del" fab dark large color="red">
+                  <v-icon dark>mdi-delete</v-icon>
+                </v-btn>
+                <!-- delete -->
+                <div v-if="del">
+                  <v-btn
+                    class="ma-2"
+                    tile
+                    outlined
+                    @click="deleteEvent(event._id),del=false"
+                    color="primary"
+                  >
+                    <v-icon left>mdi-delete</v-icon>DELETE
+                  </v-btn>
+                  <v-btn class="ma-2" tile color="red" dark @click="del=false">CANCEL</v-btn>
+                </div>
+              </div>
+            </v-container>
+          </v-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- update -->
     <div v-show="update">
       <table>
         <v-card ref="form">
-          <template>
-            <v-card class="mx-auto" max-width="400">
-              <!-- <Imageupload/> -->
-            </v-card>
-          </template>
-          
           <v-card-text>
+            <template>
+              <v-card class="mx-auto" max-width="400">
+                <!-- <Imageupload /> -->
+                <v-img
+                  class="white--text align-end"
+                  height="300px"
+                  :src="img"
+                  @click="$refs.file.click()"
+                ></v-img>
+                <!-- hidden file para sa file handling -->
+                <input
+                  type="file"
+                  id="file"
+                  ref="file"
+                  style="display: none"
+                  @change="onFileChange()"
+                >
+              </v-card>
+            </template>
             <v-text-field
               ref="name"
               v-model="title"
@@ -99,11 +140,10 @@
           <v-divider class="mt-12"></v-divider>
 
           <v-card-actions>
-            <v-btn text>Cancel</v-btn>
+            <v-btn text @click="update = false">Cancel</v-btn>
             <v-spacer></v-spacer>
-            <v-slide-x-reverse-transition>
-            </v-slide-x-reverse-transition>
-            <v-btn @click.prevent="update = false" color="primary" @click="submit" text >Update</v-btn>
+            <v-slide-x-reverse-transition></v-slide-x-reverse-transition>
+            <v-btn @click.prevent="update = false" color="primary" @click="submit" text>Update</v-btn>
           </v-card-actions>
         </v-card>
       </table>
@@ -111,11 +151,11 @@
   </div>
 </template>
 <style scoped>
-img{
+img {
   height: 400px;
-  width:700px;
+  width: 700px;
 }
-h1{
+h1 {
   color: teal;
 }
 </style>
@@ -124,8 +164,7 @@ h1{
 <script>
 import axios from "axios";
 // import Sidebar from "../components/Sidebar.vue";
-// import Imageupload from "../components/imageupload.vue";
-
+import Imageupload from "../components/imageupload.vue";
 // import CardsOfEvents from "../components/CardsOfEvents.vue"
 export default {
   name: "Dashboard",
@@ -134,18 +173,27 @@ export default {
   },
   data() {
     return {
+      search: "",
       events: [],
       update: false,
       title: "",
+      del: false,
       description: "",
       date: "",
       address: "",
-      menu:'',
-      id:'',
-      file:'',
-    img: require("@/assets/logopictures.jpeg"),
-
+      menu: "",
+      id: "",
+      file: "",
+      image: "",
+      img: require("@/assets/logopictures.jpeg")
     };
+  },
+  computed: {
+    filteredList() {
+      return this.events.filter(event => {
+        return event.title.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
   },
   mounted() {
     axios.get("http://localhost:5000/event/retrieveAll").then(res => {
@@ -160,24 +208,40 @@ export default {
         });
       });
     },
-    editEvent(id, title, dateEvent, description, address) {
-    (this.id = id),
-      (this.title = title),
+    editEvent(id, title, dateEvent, description, address, image) {
+      (this.id = id),
+        (this.title = title),
         (this.date = dateEvent),
         (this.description = description),
-        (this.address = address);
-
+        (this.address = address),
+        (this.image = image);
+      console.log(image);
+      // http://localhost:5000/static/images/
+      this.img = "http://localhost:5000/static/images/" + image;
     },
-    submit(){
+    submit() {
       var data = {
         title: this.title,
         dateEvent: this.date,
         description: this.description,
-        address: this.address
+        address: this.address,
+        filename: this.file
       };
-      console.log(data)
+      console.log(this.file);
+      let formData = new FormData();
+      formData.append("image", this.file);
+      formData.append("title", this.title);
+      formData.append("dateEvent", this.date);
+      formData.append("description", this.description);
+      formData.append("address", this.address);
+      console.log(formData);
+
       axios
-        .put("http://localhost:5000/event/update" + this.id, { data })
+        .put("http://localhost:5000/event/update" + this.id, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
         .then(res => {
           axios.get("http://localhost:5000/event/retrieveAll").then(res => {
             this.events = res.data;
@@ -187,20 +251,30 @@ export default {
     onFileChange() {
       this.file = this.$refs.file.files[0];
       this.img = URL.createObjectURL(this.file);
-    },
+    }
   }
 };
 </script>
 <style scoped>
-table {
-  padding: 15px;
-  /* margin-right: 15%; */
-  margin-left: 15%;
-  width: 70%;
-  /* border-style: groove; */
-  margin-top: 1%;
-  background-color: white;
-  border-radius: 3px;
+.container {
+  background-image: linear-gradient(
+    to right top,
+    #051937,
+    #004d7a,
+    #008793,
+    #00bf72,
+    #a8eb12
+  );
+}
+.searchbar {
+  width: 40vh;
+}
+img {
+    height: 30%;
+    width: 60%;
+}
+#all {
+  margin-top: 5%;
 }
 table #tbody {
   border-style: groove;
@@ -210,8 +284,19 @@ table #tbody {
 }
 #buttons {
   text-align: right;
+  margin-top: 1%;
 }
-.tableEventHolder{
-  margin-top:70px;
+h4 {
+    color: white
+}
+h5 {
+    color: white
+}
+h1 {
+    color: white
+}
+.title{
+  color:teal;
+  font-size: 50px;
 }
 </style>
