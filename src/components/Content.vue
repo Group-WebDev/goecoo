@@ -5,7 +5,6 @@
       <v-card-text>fsdtfsdafssfa</v-card-text>
   </v-card>
 </template>
-
 <script>
 export default {
     data(){

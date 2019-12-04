@@ -10,19 +10,30 @@ app.use(
   })
 );
 
+
 const update = (req, res) => {
+  console.log(req.body, 'body')
+  console.log("update: ", req.file )
+//   req.file.forEach(function(item) {
+//     console.log(item);
+//     // move your file to destination
+// })
   let test = async function() {
-    let events = await event.updateEvent(
-      req.params.id,
-      req.body.data.title,
-      req.body.data.description,
-      req.body.data.dateEvent,
-      req.body.data.address
-    );
-    let events = await event.retrieveEvents();
-    res.status(200).send(events);
-    console.log(events)
-  };
+    try{
+      await event.updateEvent(
+        req.params.id,
+        req.body.title,
+        req.body.description,
+        req.body.dateEvent,
+        req.body.address,
+        req.file.filename
+      );
+      let events = await event.retrieveEvents();
+      res.status(200).send(events);
+      console.log(events)
+    } catch(err){
+        res.send('error')
+    }};
   test();
 };
 

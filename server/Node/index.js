@@ -10,6 +10,7 @@ const subscribe_notification = require('./subscriber/notification')
 const create  = require('./events/create');
 const retrieveAll = require('./events/retrieveAll');
 const retrieveByTitle = require('./events/retrieveByTitle')
+const retrieveSubscriber = require('./subscriber/retrieveSubscribers')
 const remove = require('./events/delete');
 const update = require('./events/update');
 const multer = require('multer');
@@ -111,6 +112,10 @@ app.post('/subcriber/notification', function (req,res){
   subscribe_notification.notification(req,res)
 })
 
+app.get('/subscribers/retrieveAll', function(req, res){
+  retrieveSubscriber.retrieveSubscribers(req, res)
+})
+
 app.post('/event/create',upload.single('image'), (req, res) => {
   console.log(req.body, 'the file')
   create.createEvent(req, res);
@@ -124,11 +129,11 @@ app.get('/event/retrievebytitle', (req, res) => {
 app.delete('/event/delete:id', (req, res) => {
   remove.remove(req, res);
 })
-app.put('/event/update:id', (req, res) => {
+app.put('/event/update:id', upload.single('image'),(req, res) => {
   update.update(req, res);
 })
 
 
 app.listen(5000, function () {
-  console.log("Connected to port : 3000!")
+  console.log("Connected to port : 5000!")
 })
