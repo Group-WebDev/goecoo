@@ -24,7 +24,7 @@ var Schema = new mongoose.Schema({
  }
 
  Schema.statics.notification = async function(){
-   return await this.countDocument({seen: false})
+   return await this.count({seen: false})
  }
 
  module.exports = mongoose.model('subscriber', Schema);

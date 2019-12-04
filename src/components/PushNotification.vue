@@ -1,38 +1,38 @@
 <template>
-    <div>
-  
-   <div class="text-center">
-    <v-badge  class="notification">
-      <template v-slot:badge >{{notification}}</template>
-      <v-icon>mdi-email</v-icon>
-    </v-badge>
-  </div>
+  <div>
+    <div class="text-center">
+      <v-badge class="notification">
+        <template v-slot:badge>{{notification}}</template>
+        <v-icon>mdi-email</v-icon>
+      </v-badge>
     </div>
+  </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
-    name:"Notification",
-    data(){
-        return {
-        notification:2
-    }},
-    // number of subscribers
-    mounted(){
-        axios.post("http://localhost:5000/subcriber/notification")
-        .then(res =>{
-            this.notification = res.data
-        })
-        .catch(err =>{
-            console.log(err)
-        })
-    }
-
-}
+  name: "Notification",
+  data() {
+    return {
+      notification: 2
+    };
+  },
+  // number of subscribers
+  mounted() {
+    axios
+      .post("http://localhost:5000/subcriber/notification")
+      .then(res => {
+        console.log(res.data);
+        this.notification = res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+};
 </script>
 
 <style scoped>
-
 .notification {
   /* background-color: #555; */
   color: white;
