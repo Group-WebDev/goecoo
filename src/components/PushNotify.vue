@@ -16,7 +16,7 @@ export default {
   name: "Notification",
   data() {
     return {
-      notification: 2,
+      notification: 0,
       newSubscribers: [],
       viewNotif : false,
     };

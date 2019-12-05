@@ -17,7 +17,7 @@
 
 
             <v-spacer></v-spacer>
-            <Notification/>
+            <Notification />
 
             <v-btn link @click="logout()" class="mx-2" fab dark color="teal" icon>
               <v-icon dark>fas fa-sign-out-alt</v-icon>

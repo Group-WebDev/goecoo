@@ -204,6 +204,7 @@ export default {
       });
     },
     submit() {
+      this.$swal("Successfully","Event is Created", "success")
       var data = {
         image: this.file,
         title: this.title,

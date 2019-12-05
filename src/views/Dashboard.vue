@@ -1,15 +1,20 @@
 <template>
   <div id="all">
-    <v-text-field
-      v-model="search"
-      append-icon="search"
-      label="Search Event Name"
-      single-line
-      hide-details
-      class="searchbar"
-    ></v-text-field>
-    <v-responsive max-height="200"></v-responsive>
     <!-- <CardsOfEvents/> -->
+    <v-toolbar>
+      <v-toolbar-title>Events</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search Event Name"
+        single-line
+        hide-details
+        class="searchbar"
+      ></v-text-field>
+    </v-toolbar>
+    <v-responsive max-height="200"></v-responsive>
     <div v-for="(event, index) in filteredList" :key="index" v-bind:update="false" v-show="!update">
       <div>
         <div style="margin-top:2%">
@@ -40,7 +45,16 @@
                 >
                   <v-icon dark>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn @click="cid = event._id" v-show="cid != event._id " :value="event._id" class="mx-2" fab dark large color="red">
+                <v-btn
+                  @click="cid = event._id"
+                  v-show="cid != event._id "
+                  :value="event._id"
+                  class="mx-2"
+                  fab
+                  dark
+                  large
+                  color="red"
+                >
                   <v-icon dark>mdi-delete</v-icon>
                 </v-btn>
                 <!-- delete -->
@@ -65,86 +79,86 @@
 
     <!-- update -->
     <div v-show="update">
-        <v-card ref="form">
-          <v-card-text>
-            <template>
-              <v-card class="mx-auto" max-width="400">
-                <!-- <Imageupload /> -->
-                <v-img
-                  class="white--text align-end"
-                  height="300px"
-                  :src="img"
-                  @click="$refs.file.click()"
-                ></v-img>
-                <!-- hidden file para sa file handling -->
-                <input
-                  type="file"
-                  id="file"
-                  ref="file"
-                  style="display: none"
-                  @change="onFileChange()"
-                >
-              </v-card>
+      <v-card ref="form">
+        <v-card-text>
+          <template>
+            <v-card class="mx-auto" max-width="400">
+              <!-- <Imageupload /> -->
+              <v-img
+                class="white--text align-end"
+                height="300px"
+                :src="img"
+                @click="$refs.file.click()"
+              ></v-img>
+              <!-- hidden file para sa file handling -->
+              <input
+                type="file"
+                id="file"
+                ref="file"
+                style="display: none"
+                @change="onFileChange()"
+              >
+            </v-card>
+          </template>
+          <v-text-field
+            ref="name"
+            v-model="title"
+            prepend-icon="fas fa-file"
+            label="Title"
+            placeholder="Title for the event"
+            required
+          ></v-text-field>
+          <!-- <v-col cols="12" sm="6" md="4"> -->
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            :return-value.sync="date"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="date"
+                label="Pick a Date"
+                prepend-icon="fas fa-calendar-alt"
+                readonly
+                v-on="on"
+              ></v-text-field>
             </template>
-            <v-text-field
-              ref="name"
-              v-model="title"
-              prepend-icon="fas fa-file"
-              label="Title"
-              placeholder="Title for the event"
-              required
-            ></v-text-field>
-            <!-- <v-col cols="12" sm="6" md="4"> -->
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="date"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="date"
-                  label="Pick a Date"
-                  prepend-icon="fas fa-calendar-alt"
-                  readonly
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="date" no-title scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="this.$router.push('/admin/dashboard')">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-              </v-date-picker>
-            </v-menu>
-            <v-textarea
-              name="input-7-1"
-              filled
-              placeholder="Description of the event"
-              prepend-icon="fas fa-file-alt"
-              label="Description"
-              v-model="description"
-              auto-grow
-            ></v-textarea>
-            <v-text-field
-              v-model="address"
-              prepend-icon="fas fa-map-marker-alt"
-              label="Venue"
-              placeholder="Venue"
-              required
-            ></v-text-field>
-          </v-card-text>
-          <v-divider class="mt-12"></v-divider>
+            <v-date-picker v-model="date" no-title scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="this.$router.push('/admin/dashboard')">Cancel</v-btn>
+              <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
+          <v-textarea
+            name="input-7-1"
+            filled
+            placeholder="Description of the event"
+            prepend-icon="fas fa-file-alt"
+            label="Description"
+            v-model="description"
+            auto-grow
+          ></v-textarea>
+          <v-text-field
+            v-model="address"
+            prepend-icon="fas fa-map-marker-alt"
+            label="Venue"
+            placeholder="Venue"
+            required
+          ></v-text-field>
+        </v-card-text>
+        <v-divider class="mt-12"></v-divider>
 
-          <v-card-actions>
-            <v-btn text @click="update = false">Cancel</v-btn>
-            <v-spacer></v-spacer>
-            <v-slide-x-reverse-transition></v-slide-x-reverse-transition>
-            <v-btn @click.prevent="update = false" color="primary" @click="submit" text>Update</v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-card-actions>
+          <v-btn text @click="update = false">Cancel</v-btn>
+          <v-spacer></v-spacer>
+          <v-slide-x-reverse-transition></v-slide-x-reverse-transition>
+          <v-btn @click.prevent="update = false" color="primary" @click="submit" text>Update</v-btn>
+        </v-card-actions>
+      </v-card>
     </div>
   </div>
 </template>
@@ -183,7 +197,7 @@ export default {
       id: "",
       file: "",
       image: "",
-      cid:"",
+      cid: "",
       img: require("@/assets/logopictures.jpeg")
     };
   },
@@ -201,7 +215,8 @@ export default {
   },
   methods: {
     deleteEvent(id) {
-      this.cid = ""
+      this.$swal("Successfully","Event is Delete", "success")
+      this.cid = "";
       axios.delete("http://localhost:5000/event/delete" + id).then(res => {
         axios.get("http://localhost:5000/event/retrieveAll").then(res => {
           this.events = res.data;
@@ -220,6 +235,7 @@ export default {
       this.img = "http://localhost:5000/static/images/" + image;
     },
     submit() {
+       this.$swal("Successfully","Event is Edited", "success")
       var data = {
         title: this.title,
         dateEvent: this.date,
@@ -270,11 +286,11 @@ export default {
   width: 40vh;
 }
 img {
-    height: 30%;
-    width: 60%;
+  height: 30%;
+  width: 60%;
 }
 #all {
-  margin-top: 8%;
+  margin-top: 5%;
 }
 table #tbody {
   border-style: groove;
@@ -287,16 +303,16 @@ table #tbody {
   margin-top: 1%;
 }
 h4 {
-    color: white
+  color: white;
 }
 h5 {
-    color: white
+  color: white;
 }
 h1 {
-    color: white
+  color: white;
 }
-.title{
-  color:teal;
+.title {
+  color: teal;
   font-size: 50px;
 }
 </style>

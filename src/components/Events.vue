@@ -2,11 +2,11 @@
   <div>
     <!-- <v-text-field v-model="search" append-icon="search" label="Search Event Name" single-line hide-details class="searchbar"></v-text-field> -->
     <v-toolbar>
-      <v-toolbar-title>GoEco Events</v-toolbar-title>
+      <v-toolbar-title>Events</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-        <v-text-field v-model="search" append-icon="search" label="Search Event Name" single-line hide-details class="searchbar"></v-text-field>
+    <v-text-field v-model="search" append-icon="search" label="Search Event Name" single-line hide-details class="searchbar"></v-text-field>
     </v-toolbar>
     <div v-for="(event, index) in filteredList" :key="index">
       <div>

@@ -7,7 +7,7 @@ var isseen = (req,res)=> {
     let test = async function(){
         try{
             await subscriber.isseenNotification()
-            res.status(200).send("updated!")
+            res.status(200).send("0")
         }catch{
             res.status(400).send("error!")
         }
