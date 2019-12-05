@@ -8,6 +8,7 @@
       hide-details
       class="searchbar"
     ></v-text-field>
+    <v-responsive max-height="200"></v-responsive>
     <!-- <CardsOfEvents/> -->
     <div v-for="(event, index) in filteredList" :key="index" v-bind:update="false" v-show="!update">
       <div>
@@ -273,7 +274,7 @@ img {
     width: 60%;
 }
 #all {
-  margin-top: 5%;
+  margin-top: 8%;
 }
 table #tbody {
   border-style: groove;

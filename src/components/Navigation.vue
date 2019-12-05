@@ -4,6 +4,7 @@
       :collapse-on-scroll="collapseOnScroll" fixed>
         <v-toolbar-title>Go Eco</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn icon><v-icon>mdi-information</v-icon></v-btn>
     </v-app-bar>
 </div>
 </template>
