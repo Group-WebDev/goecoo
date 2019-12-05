@@ -101,8 +101,8 @@ export default {
     text-align: right;
 }
 img {
-    height: 50vh;
-    width: 90vh;
+    height: 30%;
+    width: 60%;
 }
 .container {
     background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);

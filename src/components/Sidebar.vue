@@ -17,6 +17,8 @@
 
 
             <v-spacer></v-spacer>
+            <Notification/>
+
             <v-btn link @click="logout()" class="mx-2" fab dark color="teal" icon>
               <v-icon dark>fas fa-sign-out-alt</v-icon>
             </v-btn>
@@ -140,10 +142,13 @@
 }
 </style>
 <script>
+import Notification from '@/components/PushNotify'
 import axios from "axios";
 export default {
   name: "sidebar",
-
+  components:{
+    Notification
+  },
   data: () => ({
     drawer: false
   }),

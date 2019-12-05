@@ -14,6 +14,8 @@ const remove = require('./events/delete');
 const update = require('./events/update');
 const multer = require('multer');
 const bodyParser = require("body-parser");
+const subscribe_notification = require('./subscriber/notification')
+const subscribe_notifUPdate = require('./subscriber/isseenNotify')
 const path = require('path');
 //const test = require('../')
 
@@ -107,11 +109,15 @@ app.post('/admin', function (req, res) {
 app.post('/subscribe', function (req, res) {
   subscribe.subscribe(req, res);
 })
-app.post('/subscribers/create',function(req,res){
-  subscribe.retrieveSubscribers(req,res);
-})
+
 app.get('/subscribers/retrieveAll', function(req, res){
   retrieveSubscriber.retrieveSubscribers(req,res)
+})
+app.post('/subcriber/notification', function (req,res){
+  subscribe_notification.notification(req,res)
+})
+app.put('/subscriber/updateisSeen', function (req, res){
+  subscribe_notifUPdate.isseen(req,res)
 })
 app.post('/event/create',upload.single('image'), (req, res) => {
   console.log(req.body, 'the file')
@@ -126,7 +132,7 @@ app.get('/event/retrievebytitle', (req, res) => {
 app.delete('/event/delete:id', (req, res) => {
   remove.remove(req, res);
 })
-app.put('/event/update:id', (req, res) => {
+app.put('/event/update:id',upload.single('image'), (req, res) => {
   update.update(req, res);
 })
 

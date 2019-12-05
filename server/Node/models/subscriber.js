@@ -5,7 +5,8 @@ var Schema = new mongoose.Schema({
     lastname: {type:String},
     middlename: {type:String},
     email: {type: String, unique:true},
-    address: {type: String}
+    address: {type: String},
+    seen:{type:Boolean, default:false}
  });
 
  Schema.statics.addSubscriber = async function (subscriber){
@@ -23,8 +24,16 @@ var Schema = new mongoose.Schema({
     return await this.find();
  }
  
- Schema.statics.getByUsername = async function(username) {
-    return await this.findOne({"username" : username});
+ Schema.statics.getByEmail = async function(email) {
+    return await this.findOne({"email" : email});
  }
+
+ Schema.statics.notification = async function(){
+    return await this.countDocuments({"seen":false})
+  }
+ 
+  Schema.statics.isseenNotification = async function(){
+     return await this.updateMany({seen : false},{$set:{seen : true}})
+  }
 
  module.exports = mongoose.model('subscriber', Schema);

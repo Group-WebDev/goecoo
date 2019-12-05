@@ -57,6 +57,7 @@ var currentDate = function() {
 
 const createEvent = (req, res) => {
   d = req.body;
+  console.log(req.file)
   currentDate();
   let test = async function() {
     let data = {
@@ -69,6 +70,7 @@ const createEvent = (req, res) => {
       createdBy: id,
       image:req.file.filename
     };
+    console.log(req.file.filename)
     await event.addEvent(data);
     let item = await event.getLastEvent();
     console.log(item);

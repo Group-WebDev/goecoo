@@ -50,7 +50,7 @@
 // import axios from "axios";
 import {
     createUser
-} from '../components/Repository.js'
+} from '@/components/Repository.js'
 export default {
     data() {
         return {
@@ -85,20 +85,13 @@ export default {
                 email: this.email,
                 address: this.address
             }
-            createUser({
-                firstname: this.firstname,
-                lastname: this.lastname,
-                middlename: this.middlename,
-                email: this.email,
-                address: this.address
-            })
-                .then(response => {
-                    this.$emit('createUser', response.data);
-                    console.log(data)
+            createUser(data)
+                .then(data => {
+                    this.$emit('createUser', data.data);
                     this.username = ""
                     localStorage.setItem('subscriber', data.data)
                 })
-                .catch(err=> console.log(err.message))
+                .catch(err => alert(err.message))
         }
     },
     // computed: {
@@ -109,7 +102,6 @@ export default {
     //             this.middlename &&
     //             this.address &&
     //             this.email
-
     //         )
     //     },
     // },
@@ -121,7 +113,6 @@ export default {
     width: 30%;
     height: 30%;
 }
-
 h1 {
     color: green;
 }

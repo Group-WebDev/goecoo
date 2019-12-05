@@ -1,6 +1,5 @@
 <template>
   <div id="all">
-    <center><span class="title">Events</span></center>
     <v-text-field
       v-model="search"
       append-icon="search"
@@ -36,25 +35,25 @@
                   dark
                   large
                   color="cyan"
-                  v-if="!del"
+                  v-show="cid != event._id"
                 >
                   <v-icon dark>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn @click="del = true" class="mx-2" v-if="!del" fab dark large color="red">
+                <v-btn @click="cid = event._id" v-show="cid != event._id " :value="event._id" class="mx-2" fab dark large color="red">
                   <v-icon dark>mdi-delete</v-icon>
                 </v-btn>
                 <!-- delete -->
-                <div v-if="del">
+                <div v-if="cid == event._id">
                   <v-btn
                     class="ma-2"
                     tile
-                    outlined
+                    :value="event._id"
                     @click="deleteEvent(event._id),del=false"
                     color="primary"
                   >
                     <v-icon left>mdi-delete</v-icon>DELETE
                   </v-btn>
-                  <v-btn class="ma-2" tile color="red" dark @click="del=false">CANCEL</v-btn>
+                  <v-btn class="ma-2" tile color="red" dark @click="cid = ''">CANCEL</v-btn>
                 </div>
               </div>
             </v-container>
@@ -65,7 +64,6 @@
 
     <!-- update -->
     <div v-show="update">
-      <table>
         <v-card ref="form">
           <v-card-text>
             <template>
@@ -146,7 +144,6 @@
             <v-btn @click.prevent="update = false" color="primary" @click="submit" text>Update</v-btn>
           </v-card-actions>
         </v-card>
-      </table>
     </div>
   </div>
 </template>
@@ -185,6 +182,7 @@ export default {
       id: "",
       file: "",
       image: "",
+      cid:"",
       img: require("@/assets/logopictures.jpeg")
     };
   },
@@ -202,6 +200,7 @@ export default {
   },
   methods: {
     deleteEvent(id) {
+      this.cid = ""
       axios.delete("http://localhost:5000/event/delete" + id).then(res => {
         axios.get("http://localhost:5000/event/retrieveAll").then(res => {
           this.events = res.data;

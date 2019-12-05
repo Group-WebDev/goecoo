@@ -7,7 +7,7 @@ var Schema = new mongoose.Schema({
   address: { type: String, required: true },
   description: { type: String, required: true },
   createdBy: { type: String, required: true },
-  image:{type:String, required:true}
+  image:{type:String, required:true},
 });
 
 Schema.statics.addEvent = async function(event) {
@@ -35,9 +35,11 @@ Schema.statics.updateEvent = async function(
   title,
   description,
   dateEvent,
-  address
+  address,
+  fileName
+  // image
 ) {
-  return await this.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address } });
+  return await this.updateOne({ "_id": id }, { $set: { "title" : title, "description" : description, "dateEvent" : dateEvent, "address" : address,'image':fileName} });
 };
 
 Schema.statics.deleteEvent = async function(id) {
