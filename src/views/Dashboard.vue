@@ -1,7 +1,7 @@
 <template>
   <div id="all">
     <!-- <CardsOfEvents/> -->
-    <v-toolbar>
+    <v-toolbar v-show="!isUpdatedNow">
       <v-toolbar-title>Events</v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -153,7 +153,7 @@
         <v-divider class="mt-12"></v-divider>
 
         <v-card-actions>
-          <v-btn text @click="update = false">Cancel</v-btn>
+          <v-btn text @click="[update = false, isUpdatedNow= false]" >Cancel</v-btn>
           <v-spacer></v-spacer>
           <v-slide-x-reverse-transition></v-slide-x-reverse-transition>
           <v-btn @click.prevent="update = false" color="primary" @click="submit" text>Update</v-btn>
@@ -185,6 +185,7 @@ export default {
   },
   data() {
     return {
+      isUpdatedNow:false,
       search: "",
       events: [],
       update: false,
@@ -215,7 +216,7 @@ export default {
   },
   methods: {
     deleteEvent(id) {
-      this.$swal("Successfully","Event is Delete", "success")
+      this.$swal("Deleted Successfully","", "success")
       this.cid = "";
       axios.delete("http://localhost:5000/event/delete" + id).then(res => {
         axios.get("http://localhost:5000/event/retrieveAll").then(res => {
@@ -230,12 +231,14 @@ export default {
         (this.description = description),
         (this.address = address),
         (this.image = image);
+        this.isUpdatedNow = true,
       console.log(image);
       // http://localhost:5000/static/images/
       this.img = "http://localhost:5000/static/images/" + image;
     },
     submit() {
-       this.$swal("Successfully","Event is Edited", "success")
+       this.$swal("Updated Successfully","", "success")
+       this.isUpdatedNow = false
       var data = {
         title: this.title,
         dateEvent: this.date,
