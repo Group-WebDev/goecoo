@@ -13,9 +13,12 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || ''
   },
-  mutations: {
+  getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
+    
+  },
+  mutations: {
 
     auth_request(state) {
       state.status = 'loading'
@@ -54,16 +57,14 @@ export default new Vuex.Store({
     //       })
     //   // })
     // },
-    // logout({ commit }) {
-    //   // return new Promise((resolve) => {
-    //     commit('logout')
-    //     sessionStorage.setItem("authenticated", false)
-    //     sessionStorage.removeItem('authenticated')
-    //     localStorage.removeItem('token')
-    //     delete axios.defaults.headers.common['Authorization']
-    //     // resolve()
-    //   // })
-    // }
+    logout({commit}){
+      return new Promise((resolve) => {
+          commit('logout')
+          localStorage.removeItem('token')
+          delete axios.defaults.headers.common['Authorization']
+          resolve()
+      })
+    }
   },
   modules: {}
 });

@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     login() {
+      window.location.reload()
       // this.$store.dispatch('login', {username : this.user.username, password : this.user.password})
       axios.post("http://localhost:5000/admin", {
         data: { username: this.user.username, password: this.user.password }
@@ -108,6 +109,7 @@ export default {
           if (localStorage.getItem("token") != null) {
           this.$router.push("/admin/dashboard")
             this.$emit("loggedIn");
+            
           }
         })
         .catch(err => {
